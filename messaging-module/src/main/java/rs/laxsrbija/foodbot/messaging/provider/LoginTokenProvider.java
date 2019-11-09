@@ -4,6 +4,7 @@ import static rs.laxsrbija.foodbot.messaging.helper.SkypeConstants.COOKIE_CKTST;
 import static rs.laxsrbija.foodbot.messaging.helper.SkypeConstants.COOKIE_MSPOK;
 import static rs.laxsrbija.foodbot.messaging.helper.SkypeConstants.COOKIE_MSPREQU;
 import static rs.laxsrbija.foodbot.messaging.helper.SkypeConstants.FIELD_PPFT;
+import static rs.laxsrbija.foodbot.messaging.helper.SkypeConstants.FIELD_TOKEN_NAME;
 import java.util.Date;
 import java.util.StringJoiner;
 import org.jsoup.Jsoup;
@@ -14,8 +15,8 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import lombok.RequiredArgsConstructor;
 import rs.laxsrbija.foodbot.messaging.configuration.MessagingServiceConfiguration;
-import rs.laxsrbija.foodbot.messaging.exception.FoodBotMessagingException;
 import rs.laxsrbija.foodbot.messaging.helper.URLHelpers;
+import rs.laxsrbija.foodbot.messaging.helper.Utils;
 import rs.laxsrbija.foodbot.messaging.model.LoginParameters;
 
 @Service
@@ -25,7 +26,6 @@ public class LoginTokenProvider
 	private static final String HEADER_COOKIE = "cookie";
 	private static final String FIELD_LOGIN = "login";
 	private static final String FIELD_PASSWORD = "passwd";
-	private static final String INPUT_TOKEN_NAME = "t";
 
 	private final MessagingServiceConfiguration _messagingServiceConfiguration;
 
@@ -66,20 +66,8 @@ public class LoginTokenProvider
 	private String parseLoginToken(final String html)
 	{
 		final Document document = Jsoup.parse(html);
-		final Element tokenInput = document.getElementById(INPUT_TOKEN_NAME);
+		final Element tokenInput = document.getElementById(FIELD_TOKEN_NAME);
 
-		if (tokenInput == null)
-		{
-			throw new FoodBotMessagingException("Unable to find the login token input field");
-		}
-
-		final String inputToken = tokenInput.val();
-
-		if (inputToken.isEmpty())
-		{
-			throw new FoodBotMessagingException("Value of the input token field is empty");
-		}
-
-		return inputToken;
+		return Utils.getInputFieldValue(tokenInput);
 	}
 }

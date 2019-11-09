@@ -15,11 +15,11 @@ import rs.laxsrbija.foodbot.messaging.helper.Utils;
 import rs.laxsrbija.foodbot.messaging.model.LoginParameters;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class LoginParametersProvider
+public class LoginParametersProvider
 {
 	private static final Pattern PPFT_PATTERN = Pattern.compile("<input.+name=\"" + FIELD_PPFT + "\".+value=\"(.*)\".*/>");
 
-	static LoginParameters getLoginParameters()
+	public static LoginParameters getLoginParameters()
 	{
 		final GetRequest getRequest = Unirest.get(URLHelpers.getLoginParametersURL());
 		final HttpResponse<String> stringHttpResponse = getRequest.asString();

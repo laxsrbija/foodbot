@@ -11,7 +11,7 @@ public class URLHelpers
 {
 	public static String getLoginParametersURL()
 	{
-		final URIBuilder uriBuilder = getURIBuilder(SkypeConstants.API_LOGIN);
+		final URIBuilder uriBuilder = getURIBuilder(SkypeConstants.API_LOGIN + "/oauth/microsoft");
 
 		uriBuilder.addParameter("client_id", "578134");
 		uriBuilder.addParameter("redirect_uri", "https://web.skype.com");
@@ -28,6 +28,16 @@ public class URLHelpers
 		uriBuilder.addParameter("wa", "wsignin1.0");
 		uriBuilder.addParameter("wp", "MBI_SSL");
 		uriBuilder.addParameter("wreply", replyParameterValue);
+
+		return uriBuilder.toString();
+	}
+
+	public static String getSkypeTokenURL()
+	{
+		final URIBuilder uriBuilder = getURIBuilder(SkypeConstants.API_LOGIN + "/microsoft");
+
+		uriBuilder.addParameter("client_id", "578134");
+		uriBuilder.addParameter("redirect_uri", "https://web.skype.com");
 
 		return uriBuilder.toString();
 	}
