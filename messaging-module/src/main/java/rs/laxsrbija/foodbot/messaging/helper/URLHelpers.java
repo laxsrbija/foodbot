@@ -40,7 +40,7 @@ public class URLHelpers
 		}
 		catch (URISyntaxException e)
 		{
-			throw new FoodBotMessagingException("Malformed login parameters URL: ", e);
+			throw new FoodBotMessagingException("Malformed URL: ", e);
 		}
 	}
 }

@@ -29,12 +29,11 @@ public class LoginTokenProvider
 
 	private final MessagingServiceConfiguration _messagingServiceConfiguration;
 
-	public String getLoginToken()
+	public String getLoginToken(final LoginParameters loginParameters)
 	{
 		final String username = _messagingServiceConfiguration.getUsername();
 		final String password = _messagingServiceConfiguration.getPassword();
 
-		final LoginParameters loginParameters = LoginParametersProvider.getLoginParameters();
 		final String ppftField = loginParameters.getPpftField();
 
 		final HttpResponse<String> stringHttpResponse = Unirest.post(URLHelpers.getLoginTokenURL())
