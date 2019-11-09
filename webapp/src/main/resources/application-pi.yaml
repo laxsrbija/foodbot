@@ -1,0 +1,16 @@
+foodbot:
+  messaging:
+    script-path: /home/pi/Documents/python-foodbot/
+#    chat-id: 19:a073856bd14040a7b17824d80c3865fb@thread.skype
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/foodbot
+    username: foodbot
+    password: foodbot
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
