@@ -40,7 +40,7 @@ public class RegistrationTokenProvider
 
 	public RegistrationToken getRegistrationToken(final SkypeToken skypeToken)
 	{
-		if (TokenLifetimeHelper.skypeTokenHasExpired(skypeToken))
+		if (TokenLifetimeHelper.tokenHasExpired(skypeToken))
 		{
 			throw new FoodBotMessagingException("Unable to get the registration token, as the Skype token has expired");
 		}

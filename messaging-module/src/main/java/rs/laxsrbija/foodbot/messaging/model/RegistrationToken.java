@@ -1,6 +1,5 @@
 package rs.laxsrbija.foodbot.messaging.model;
 
-import java.time.LocalDateTime;
 import lombok.*;
 
 @Setter
@@ -16,16 +15,5 @@ public class RegistrationToken extends AbstractToken
 		super(null, null);
 		this.endpoint = null;
 		this.messageHost = messageHost;
-	}
-
-	public RegistrationToken(
-		final String token,
-		final LocalDateTime expirationDate,
-		final String messageHost,
-		final String endpoint)
-	{
-		super(token, expirationDate);
-		this.messageHost = messageHost;
-		this.endpoint = endpoint;
 	}
 }

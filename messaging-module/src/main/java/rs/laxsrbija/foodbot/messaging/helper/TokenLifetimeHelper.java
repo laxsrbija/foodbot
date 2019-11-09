@@ -14,7 +14,7 @@ public class TokenLifetimeHelper
 {
 	private static final long RECOMMENDED_TOKEN_LIFESPAN_HOURS = 12L;
 
-	public static boolean skypeTokenHasExpired(final AbstractToken abstractToken)
+	public static boolean tokenHasExpired(final AbstractToken abstractToken)
 	{
 		final LocalDateTime now = LocalDateTime.now();
 		return now.isAfter(abstractToken.getExpirationDate());
