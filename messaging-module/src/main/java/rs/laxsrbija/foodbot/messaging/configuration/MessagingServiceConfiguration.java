@@ -13,7 +13,4 @@ public class MessagingServiceConfiguration
 {
 	private String username;
 	private String password;
-	private String chatId;
-	private String scriptName;
-	private String scriptPath;
 }

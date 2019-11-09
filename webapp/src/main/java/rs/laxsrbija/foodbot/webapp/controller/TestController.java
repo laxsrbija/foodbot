@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.core.service.DailyMenuReminderService;
-import rs.laxsrbija.foodbot.messaging.service.MessagingService;
 import rs.laxsrbija.foodbot.persistence.repository.ConfigurationRepository;
 
 @Slf4j
