@@ -8,6 +8,7 @@ public class SkypeConstants
 {
 	public static final String API_LOGIN = "https://login.skype.com/login";
 	public static final String API_MSACC = "https://login.live.com/ppsecure/post.srf";
+	public static final String API_HOST = "https://client-s.gateway.messenger.live.com/v1/";
 
 	public static final String FIELD_PPFT = "PPFT";
 	public static final String FIELD_TOKEN_NAME = "t";

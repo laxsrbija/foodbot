@@ -64,7 +64,7 @@ public class SkypeTokenProvider
 		if (_messagingServiceConfiguration.isShorterTokenLifespan())
 		{
 			// We should pick the shortest date between the one we recommend and the one provided
-			log.info("We are using a recommended Skype token lifetime");
+			log.info("Using a recommended Skype token lifetime");
 			final LocalDateTime recommendedLifespan = now.plusHours(RECOMMENDED_TOKEN_LIFESPAN_HOURS);
 			return tokenExpiryDateTime.isBefore(recommendedLifespan) ? tokenExpiryDateTime : recommendedLifespan;
 		}
