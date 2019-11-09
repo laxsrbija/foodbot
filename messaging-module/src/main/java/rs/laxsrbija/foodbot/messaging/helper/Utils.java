@@ -6,8 +6,11 @@ import java.util.regex.Pattern;
 import org.jsoup.nodes.Element;
 import kong.unirest.Header;
 import kong.unirest.Headers;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import rs.laxsrbija.foodbot.messaging.exception.FoodBotMessagingException;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Utils // TODO Refactor
 {
 	private static final Pattern COOKIE_PATTERN = Pattern.compile("([a-zA-Z]*)=(.*?);");

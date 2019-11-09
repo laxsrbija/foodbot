@@ -1,13 +1,15 @@
 package rs.laxsrbija.foodbot.messaging.model;
 
 import java.time.LocalDateTime;
-import lombok.Builder;
-import lombok.Value;
+import lombok.Getter;
+import lombok.ToString;
 
-@Value
-@Builder
-public class SkypeToken
+@Getter
+@ToString(callSuper = true)
+public class SkypeToken extends AbstractToken
 {
-	final String token;
-	final LocalDateTime expiry;
+	public SkypeToken(final String token, final LocalDateTime expirationDate)
+	{
+		super(token, expirationDate);
+	}
 }

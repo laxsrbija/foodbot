@@ -23,7 +23,7 @@ public class URLHelpers
 	{
 		final URIBuilder uriBuilder = getURIBuilder(SkypeConstants.API_MSACC);
 		final String replyParameterValue = "https://lw.skype.com/login/oauth/proxy?client_id=578134%26site_name=lw.skype.com%26"
-				+ "redirect_uri=https%3A%2F%2Fweb.skype.com%2F";
+			+ "redirect_uri=https%3A%2F%2Fweb.skype.com%2F";
 
 		uriBuilder.addParameter("wa", "wsignin1.0");
 		uriBuilder.addParameter("wp", "MBI_SSL");
@@ -39,6 +39,12 @@ public class URLHelpers
 		uriBuilder.addParameter("client_id", "578134");
 		uriBuilder.addParameter("redirect_uri", "https://web.skype.com");
 
+		return uriBuilder.toString();
+	}
+
+	public static String getRegistrationTokenURL(final String messageHost)
+	{
+		final URIBuilder uriBuilder = getURIBuilder(messageHost + SkypeConstants.ENDPOINT_ADDRESS_PART);
 		return uriBuilder.toString();
 	}
 

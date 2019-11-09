@@ -23,7 +23,6 @@ public class DailyMenuReminderService
 
 	private final ConfigurationService _configurationService;
 	private final DailyMenuService _dailyMenuService;
-	private final MessagingService _messagingService;
 	private final PlaceholderService _placeholderService;
 
 	@Scheduled(cron = HOURLY_CRON)
@@ -57,7 +56,6 @@ public class DailyMenuReminderService
 				{
 					final String reminderMessage = _placeholderService.substituteReminderPlaceholders(dailyMenu);
 					log.info("Sending message: " + reminderMessage);
-					_messagingService.sendMessage(reminderMessage);
 				}
 			}
 		}

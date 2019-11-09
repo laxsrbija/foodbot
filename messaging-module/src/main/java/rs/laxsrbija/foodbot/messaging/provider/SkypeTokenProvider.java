@@ -11,8 +11,7 @@ import kong.unirest.Unirest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.messaging.configuration.MessagingServiceConfiguration;
-import rs.laxsrbija.foodbot.messaging.helper.URLHelpers;
-import rs.laxsrbija.foodbot.messaging.helper.Utils;
+import rs.laxsrbija.foodbot.messaging.helper.*;
 import rs.laxsrbija.foodbot.messaging.model.SkypeToken;
 
 @Slf4j
@@ -26,7 +25,6 @@ public class SkypeTokenProvider
 	private static final String FIELD_REDIRECT_URI = "redirect_uri";
 	private static final String FIELD_TOKEN = "skypetoken";
 	private static final String FIELD_EXPIRY = "expires_in";
-	private static final long RECOMMENDED_TOKEN_LIFESPAN_HOURS = 12L;
 
 	private final MessagingServiceConfiguration _messagingServiceConfiguration;
 
@@ -49,27 +47,14 @@ public class SkypeTokenProvider
 		final Document document = Jsoup.parse(html);
 
 		final String token = getInputFieldValue(document, FIELD_TOKEN);
+
 		final long tokenLifetime = Long.parseLong(getInputFieldValue(document, FIELD_EXPIRY));
+		final LocalDateTime tokenExpiry =
+			TokenLifetimeHelper.getTokenExpiryDateTimeByLifetime(
+				tokenLifetime,
+				_messagingServiceConfiguration.isShorterTokenLifespan());
 
-		return SkypeToken.builder()
-			.token(token)
-			.expiry(getTokenExpiryDateTime(tokenLifetime)).build();
-	}
-
-	private LocalDateTime getTokenExpiryDateTime(final long lifetimeInSeconds)
-	{
-		final LocalDateTime now = LocalDateTime.now();
-		final LocalDateTime tokenExpiryDateTime = now.plusSeconds(lifetimeInSeconds);
-
-		if (_messagingServiceConfiguration.isShorterTokenLifespan())
-		{
-			// We should pick the shortest date between the one we recommend and the one provided
-			log.info("Using a recommended Skype token lifetime");
-			final LocalDateTime recommendedLifespan = now.plusHours(RECOMMENDED_TOKEN_LIFESPAN_HOURS);
-			return tokenExpiryDateTime.isBefore(recommendedLifespan) ? tokenExpiryDateTime : recommendedLifespan;
-		}
-
-		return tokenExpiryDateTime;
+		return new SkypeToken(token, tokenExpiry);
 	}
 
 	private static String getInputFieldValue(final Document document, final String fieldName)
