@@ -5,6 +5,8 @@ import org.apache.http.client.utils.URIBuilder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import rs.laxsrbija.foodbot.messaging.exception.FoodBotMessagingException;
+import rs.laxsrbija.foodbot.messaging.model.Message;
+import rs.laxsrbija.foodbot.messaging.model.RegistrationToken;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class URLHelpers
@@ -44,7 +46,17 @@ public class URLHelpers
 
 	public static String getRegistrationTokenURL(final String messageHost)
 	{
-		final URIBuilder uriBuilder = getURIBuilder(messageHost + SkypeConstants.ENDPOINT_ADDRESS_PART);
+		final URIBuilder uriBuilder = getURIBuilder(messageHost + SkypeConstants.ENDPOINT_ADDRESS_PART_ENDPOINTS);
+		return uriBuilder.toString();
+	}
+
+	public static String getMessagesURL(final RegistrationToken registrationToken, final Message message)
+	{
+		final URIBuilder uriBuilder = getURIBuilder(
+			registrationToken.getMessageHost() +
+				SkypeConstants.ENDPOINT_ADDRESS_PART_CONVERSATIONS +
+				"/" + message.getGroupId() +
+				"/messages");
 		return uriBuilder.toString();
 	}
 

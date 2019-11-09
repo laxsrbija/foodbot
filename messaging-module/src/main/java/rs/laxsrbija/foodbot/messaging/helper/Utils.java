@@ -1,5 +1,7 @@
 package rs.laxsrbija.foodbot.messaging.helper;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,5 +61,11 @@ public class Utils // TODO Refactor
 		}
 
 		return inputToken;
+	}
+
+	public static LocalDateTime localDateTimeFromTimestamp(long timestamp, boolean milliseconds)
+	{
+		final Instant instant = milliseconds ? Instant.ofEpochMilli(timestamp) : Instant.ofEpochSecond(timestamp);
+		return LocalDateTime.ofInstant(instant, TimeZone.getDefault().toZoneId());
 	}
 }

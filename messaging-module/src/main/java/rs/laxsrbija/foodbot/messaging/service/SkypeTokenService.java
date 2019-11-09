@@ -25,7 +25,8 @@ public class SkypeTokenService
 	{
 		final Optional<RegistrationToken> token = _registrationTokenRepository.getToken();
 
-		if (token.isPresent() && !TokenLifetimeHelper.tokenHasExpired(token.get())) {
+		if (token.isPresent() && !TokenLifetimeHelper.tokenHasExpired(token.get()))
+		{
 			return token.get();
 		}
 

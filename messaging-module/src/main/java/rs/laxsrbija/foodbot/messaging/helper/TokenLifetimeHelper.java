@@ -1,8 +1,6 @@
 package rs.laxsrbija.foodbot.messaging.helper;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.TimeZone;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +37,7 @@ public class TokenLifetimeHelper
 
 	public static LocalDateTime getTokenExpiryByTimestamp(final long timestamp, final boolean useRecommendedLifespan)
 	{
-		final LocalDateTime tokenExpiryDateTime =
-			LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), TimeZone.getDefault().toZoneId());
+		final LocalDateTime tokenExpiryDateTime = Utils.localDateTimeFromTimestamp(timestamp, false);
 
 		if (useRecommendedLifespan)
 		{
