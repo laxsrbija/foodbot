@@ -13,4 +13,7 @@ public class MessagingServiceConfiguration
 {
 	private String username;
 	private String password;
+
+	// Use a safer and shorter token expiry time than the one returned by API
+	private boolean shorterTokenLifespan;
 }

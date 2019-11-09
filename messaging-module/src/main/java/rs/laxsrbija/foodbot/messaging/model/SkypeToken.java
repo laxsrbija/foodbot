@@ -1,5 +1,6 @@
 package rs.laxsrbija.foodbot.messaging.model;
 
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Value;
 
@@ -8,5 +9,5 @@ import lombok.Value;
 public class SkypeToken
 {
 	final String token;
-	final String expiry;
+	final LocalDateTime expiry;
 }
