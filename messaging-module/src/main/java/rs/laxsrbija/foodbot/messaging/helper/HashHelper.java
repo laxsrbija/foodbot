@@ -2,15 +2,15 @@ package rs.laxsrbija.foodbot.messaging.helper;
 
 import java.security.InvalidParameterException;
 import java.util.*;
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import rs.laxsrbija.foodbot.messaging.exception.FoodBotMessagingException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HashHelper
 {
-	private static final String SKYPEWEB_APPID = "msmsgs@msnmsgr.com";
+	private static final String SKYPEWEB_APP_ID = "msmsgs@msnmsgr.com";
 	private static final String SKYPEWEB_SECRET = "Q1P7W2E4J9R8U3S5";
 	private static final String HEX_CHARS = "0123456789abcdef";
 	private static final long MODULUS = 0x7fffffff;
@@ -21,24 +21,14 @@ public class HashHelper
 	// For further reading refer to: https://github.com/Terrance/SkPy/blob/master/skpy/conn.py#L748-L830
 	public static String getMac256Hash(final String challenge)
 	{
-		String message = challenge + SKYPEWEB_APPID;
+		String message = challenge + SKYPEWEB_APP_ID;
 
 		// If the message length isn't a multiple of 8, add a right-padded character '0' until it is
 		message += StringUtils.repeat("0", 8 - (message.length() % 8));
 
 		final List<Long> challengeParts = toUint32Array(message);
-		final String sha256HexString = DigestUtils.sha256Hex(challenge + SKYPEWEB_SECRET).toUpperCase();
-		final String decodedHash;
-		try
-		{
-			 decodedHash = Hex.decodeHex(sha256HexString).toString();
-		}
-		catch (DecoderException e)
-		{
-			throw new FoodBotMessagingException(e);
-		}
+		final List<Long> sha256Parts = getSha256Parts(challenge);
 
-		final List<Long> sha256Parts = toUint32Array(decodedHash.substring(0, 16));
 		final List<Long> checkSumParts = checkSum64(challengeParts, sha256Parts);
 
 		String result = "";
@@ -46,6 +36,42 @@ public class HashHelper
 		{
 			final long comparisonResult = sha256Parts.get(i) ^ checkSumParts.get(i % 2);
 			result += toLittleEndianHexString(comparisonResult);
+		}
+
+		return result;
+	}
+
+	private static List<Long> getSha256Parts(final String challenge)
+	{
+		final List<Long> sha256Parts = new ArrayList<>(4);
+		final String sha256HexString = DigestUtils.sha256Hex(challenge + SKYPEWEB_SECRET).toUpperCase();
+
+		for (int i = 0; i < 4; i++)
+		{
+			long value = 0L;
+			for (int j = 0; j < 4; j++)
+			{
+				final int position = 8 * i + j * 2;
+
+				final String substring = StringUtils.substring(sha256HexString, position, position + 2);
+				final long decimalValue = Long.valueOf(substring, 16);
+
+				value += decimalValue * Math.pow(256, j);
+			}
+			sha256Parts.add(value);
+		}
+
+		return sha256Parts;
+	}
+
+	private static List<Long> fromByteArray(final String sha256HexString)
+	{
+		final List<Long> result = new ArrayList<>();
+
+		for (int i = 0; i < sha256HexString.length(); i += 2)
+		{
+			final String substring = StringUtils.substring(sha256HexString, i, i + 2);
+			result.add(Long.valueOf(substring, 16));
 		}
 
 		return result;
@@ -70,12 +96,12 @@ public class HashHelper
 		long temp;
 		for (int i = 0; i < challengeLength; i += 2)
 		{
-			temp = (challengeParts.get(i) * MAGIC_CONSTANT) % MODULUS;
-			low = (((low + temp) * hash0) + hash1) % MODULUS;
+			temp = challengeParts.get(i) * MAGIC_CONSTANT % MODULUS;
+			low = ((low + temp) * hash0 + hash1) % MODULUS;
 			high += low;
 
 			temp = challengeParts.get(i + 1);
-			low = (((low + temp) * hash2) + hash3) % MODULUS; // TODO Check braces
+			low = ((low + temp) * hash2 + hash3) % MODULUS;
 			high += low;
 		}
 
@@ -89,10 +115,10 @@ public class HashHelper
 	private static String toLittleEndianHexString(final long n)
 	{
 		String result = "";
-		for (long i = 0L; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			result += HEX_CHARS.charAt((int)((n >> (i * 8 + 4)) & 15L));
-			result += HEX_CHARS.charAt((int)((n >> (i * 8)) & 15L));
+			result += HEX_CHARS.charAt((int)(n >> (i * 8 + 4) & 15L));
+			result += HEX_CHARS.charAt((int)(n >> (i * 8) & 15L));
 		}
 
 		return result;
@@ -107,15 +133,15 @@ public class HashHelper
 			throw new InvalidParameterException("The message length must be a multiple of 4");
 		}
 
-		final List<Long> uint32Array = new ArrayList<>(); // Todo fix the size to len / 4
+		final List<Long> uint32Array = new ArrayList<>(length / 4);
 
-		for (int i = 0, j = 0; i < length; i += 4, j++)
+		for (int i = 0; i < length; i += 4)
 		{
 			long value = 0L;
-			value += (int)message.charAt(i); // TODO remove casting
-			value += (int)message.charAt(i + 1) * (1 << 8);
-			value += (int)message.charAt(i + 2) * (1 << 16);
-			value += (int)message.charAt(i + 3) * (1 << 24);
+			value += message.charAt(i);
+			value += message.charAt(i + 1) * (1 << 8);
+			value += message.charAt(i + 2) * (1 << 16);
+			value += message.charAt(i + 3) * (1 << 24);
 			uint32Array.add(value);
 		}
 
