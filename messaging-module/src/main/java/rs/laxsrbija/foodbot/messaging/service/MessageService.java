@@ -6,5 +6,9 @@ import rs.laxsrbija.foodbot.messaging.model.Message;
 
 public interface MessageService
 {
-	public Optional<LocalDateTime> sendMessage(final Message message);
+	/**
+	 * Sends message to a desired group, as defined in the provided {@link Message}.
+	 * @throws rs.laxsrbija.foodbot.messaging.exception.FoodBotMessagingException when an error occurs
+	 */
+	Optional<LocalDateTime> sendMessage(final Message message);
 }

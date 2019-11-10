@@ -21,7 +21,12 @@ public class SkypeTokenService
 	private final SkypeTokenRepository _skypeTokenRepository;
 	private final RegistrationTokenRepository _registrationTokenRepository;
 
-	public RegistrationToken getValidRegistrationToken()
+	/**
+	 * Main service for requesting registration tokens.
+	 * It returns a cached registration token, if it's still valid.
+	 * Otherwise, it requests a new token and saves it in a local cache.
+	 */
+	RegistrationToken getValidRegistrationToken()
 	{
 		final Optional<RegistrationToken> token = _registrationTokenRepository.getToken();
 

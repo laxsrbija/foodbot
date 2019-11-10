@@ -23,7 +23,7 @@ public class SkypeMessageService implements MessageService
 	private static final String HEADER_CONTENT_TYPE = "Content-Type";
 	private static final String ORIGINAL_ARRIVAL_TIME = "OriginalArrivalTime";
 
-	final SkypeTokenService _skypeTokenService;
+	private final SkypeTokenService _skypeTokenService;
 
 	@Override
 	public Optional<LocalDateTime> sendMessage(final Message message)
