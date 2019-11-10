@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import rs.laxsrbija.foodbot.messaging.service.MessagingService;
 import rs.laxsrbija.foodbot.persistence.model.ConfigurationKeys;
 import rs.laxsrbija.foodbot.persistence.model.entity.ConfigurationEntry;
 import rs.laxsrbija.foodbot.persistence.model.entity.DailyMenu;
@@ -24,7 +23,6 @@ public class DailyMenuReminderService
 
 	private final ConfigurationService _configurationService;
 	private final DailyMenuService _dailyMenuService;
-	private final MessagingService _messagingService;
 	private final PlaceholderService _placeholderService;
 
 	@Scheduled(cron = HOURLY_CRON)
@@ -58,7 +56,6 @@ public class DailyMenuReminderService
 				{
 					final String reminderMessage = _placeholderService.substituteReminderPlaceholders(dailyMenu);
 					log.info("Sending message: " + reminderMessage);
-					_messagingService.sendMessage(reminderMessage);
 				}
 			}
 		}
