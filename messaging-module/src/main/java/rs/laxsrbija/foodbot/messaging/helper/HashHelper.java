@@ -64,19 +64,6 @@ public class HashHelper
 		return sha256Parts;
 	}
 
-	private static List<Long> fromByteArray(final String sha256HexString)
-	{
-		final List<Long> result = new ArrayList<>();
-
-		for (int i = 0; i < sha256HexString.length(); i += 2)
-		{
-			final String substring = StringUtils.substring(sha256HexString, i, i + 2);
-			result.add(Long.valueOf(substring, 16));
-		}
-
-		return result;
-	}
-
 	private static List<Long> checkSum64(final List<Long> challengeParts, final List<Long> hashParts)
 	{
 		final int challengeLength = challengeParts.size();
