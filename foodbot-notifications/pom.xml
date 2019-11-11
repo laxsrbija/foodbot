@@ -9,9 +9,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>email-module</artifactId>
+	<artifactId>notifications-module</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>FoodBot :: Email Module</name>
+	<name>FoodBot :: Notifications Module</name>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -19,6 +19,12 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-mail</artifactId>
+			<version>3.8.6</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
