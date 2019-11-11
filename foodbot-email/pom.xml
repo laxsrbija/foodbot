@@ -9,9 +9,10 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>menu-parser-module</artifactId>
+	<artifactId>email-module</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>FoodBot :: Email Module</name>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>

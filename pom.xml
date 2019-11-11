@@ -23,7 +23,6 @@
 		<module>persistence-module</module>
 		<module>foodbot-messaging</module>
 		<module>foodbot-email</module>
-		<module>core-module</module>
 		<module>webapp</module>
 	</modules>
 

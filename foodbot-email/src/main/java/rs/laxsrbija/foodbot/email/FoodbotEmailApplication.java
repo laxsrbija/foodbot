@@ -1,14 +1,14 @@
-package rs.laxsrbija.foodbot.menuparser;
+package rs.laxsrbija.foodbot.email;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MenuParserModuleApplication
+public class FoodbotEmailApplication
 {
 
 	public static void main(String[] args)
 	{
-		SpringApplication.run(MenuParserModuleApplication.class, args);
+		SpringApplication.run(FoodbotEmailApplication.class, args);
 	}
 }
