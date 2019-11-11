@@ -1,14 +1,14 @@
-package rs.laxsrbija.foodbot.messaging;
+package rs.laxsrbija.foodbot.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MessagingServiceApplication
+public class CommonModuleApplication
 {
 
 	public static void main(String[] args)
 	{
-		SpringApplication.run(MessagingServiceApplication.class, args);
+		SpringApplication.run(CommonModuleApplication.class, args);
 	}
 }

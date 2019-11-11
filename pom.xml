@@ -19,8 +19,9 @@
 	<name>FoodBot</name>
 
 	<modules>
+		<module>foodbot-common</module>
 		<module>persistence-module</module>
-		<module>messaging-module</module>
+		<module>foodbot-messaging</module>
 		<module>core-module</module>
 		<module>webapp</module>
 	</modules>
