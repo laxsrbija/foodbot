@@ -22,7 +22,7 @@
 		<module>foodbot-common</module>
 		<module>persistence-module</module>
 		<module>foodbot-messaging</module>
-		<module>foodbot-menu-parser</module>
+		<module>foodbot-email</module>
 		<module>core-module</module>
 		<module>webapp</module>
 	</modules>
