@@ -15,13 +15,14 @@
 
 	<groupId>rs.laxsrbija.foodbot</groupId>
 	<artifactId>foodbot-parent</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>FoodBot</name>
 
 	<modules>
 		<module>foodbot-common</module>
 		<module>persistence-module</module>
 		<module>foodbot-messaging</module>
+		<module>foodbot-menu-parser</module>
 		<module>core-module</module>
 		<module>webapp</module>
 	</modules>
