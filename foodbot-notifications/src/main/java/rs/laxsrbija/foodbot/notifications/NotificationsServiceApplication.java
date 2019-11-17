@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
+import rs.laxsrbija.foodbot.notifications.service.NotificationService;
 
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"rs.laxsrbija.foodbot"})
 public class NotificationsServiceApplication
 {
 

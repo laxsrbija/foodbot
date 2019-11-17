@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import rs.laxsrbija.foodbot.common.entity.ReceivedMenuItem;
+import rs.laxsrbija.foodbot.common.entity.WeeklyMenuNotification;
 import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
 import rs.laxsrbija.foodbot.notifications.email.OutboundEmailService;
 import rs.laxsrbija.foodbot.notifications.helper.MenuItemFormatter;
-import rs.laxsrbija.foodbot.notifications.model.*;
+import rs.laxsrbija.foodbot.notifications.model.InboundMenuEmail;
+import rs.laxsrbija.foodbot.notifications.model.ParsedMenuItem;
 
 @Slf4j
 @Service
