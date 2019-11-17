@@ -15,6 +15,7 @@ public class NotificationServiceConfiguration
 	private String expectedSubject;
 	private Set<String> whitelistedSenders;
 	private Pop3Configuration pop3;
+	private SmtpConfiguration smtp;
 	private CsvConfiguration csv;
 
 	@Data
@@ -25,6 +26,17 @@ public class NotificationServiceConfiguration
 		private Integer port;
 		private String username;
 		private String password;
+	}
+
+	@Data
+	@NoArgsConstructor
+	public static class SmtpConfiguration
+	{
+		private String host;
+		private Integer port;
+		private String username;
+		private String password;
+		private String displayName;
 	}
 
 	@Data
