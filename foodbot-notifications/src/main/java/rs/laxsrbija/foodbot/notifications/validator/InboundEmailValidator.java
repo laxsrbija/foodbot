@@ -25,7 +25,7 @@ public class InboundEmailValidator
 		final String subject = receivedEmail.getSubject();
 		final String expectedSubject = _notificationServiceConfiguration.getExpectedSubject();
 
-		final boolean result = subject != null && subject.equalsIgnoreCase(expectedSubject);
+		final boolean result = subject != null && subject.trim().equalsIgnoreCase(expectedSubject);
 
 		if (!result) {
 			log.info("Expected the received message to have {} as subject, but got {} instead", subject, expectedSubject);
@@ -43,10 +43,13 @@ public class InboundEmailValidator
 			final Set<String> whitelistedSenders = _notificationServiceConfiguration.getWhitelistedSenders();
 
 			final boolean result = senderEmail != null && whitelistedSenders.contains(senderEmail.trim());
+
 			if (!result)
 			{
 				log.info("Address {} is not whitelisted", senderEmail);
 			}
+
+			return result;
 		}
 
 		return false;
