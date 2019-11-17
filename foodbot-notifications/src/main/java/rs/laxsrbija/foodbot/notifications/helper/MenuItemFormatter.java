@@ -3,9 +3,12 @@ package rs.laxsrbija.foodbot.notifications.helper;
 import java.time.DayOfWeek;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import rs.laxsrbija.foodbot.notifications.exception.FoodBotNotificationException;
 import rs.laxsrbija.foodbot.notifications.model.ParsedMenuItem;
 import rs.laxsrbija.foodbot.notifications.model.ReceivedMenuItem;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MenuItemFormatter
 {
@@ -19,8 +22,15 @@ public class MenuItemFormatter
 
 		if (day != null)
 		{
-			final DayOfWeek dayOfWeek = Utils.dayOfWeekFromMenuIndexString(day.trim());
-			builder.dayOfWeek(dayOfWeek);
+			try
+			{
+				final DayOfWeek dayOfWeek = Utils.dayOfWeekFromMenuIndexString(day.trim());
+				builder.dayOfWeek(dayOfWeek);
+			}
+			catch (final FoodBotNotificationException e)
+			{
+				log.error(e.getMessage());
+			}
 		}
 
 		if (course != null)

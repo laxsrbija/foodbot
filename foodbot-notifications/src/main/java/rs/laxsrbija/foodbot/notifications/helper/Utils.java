@@ -4,6 +4,7 @@ import java.time.*;
 import java.util.Date;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import rs.laxsrbija.foodbot.notifications.exception.FoodBotNotificationException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Utils
@@ -13,9 +14,25 @@ public class Utils
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
-	public static DayOfWeek dayOfWeekFromMenuIndexString(final String dayIndex)
+	static DayOfWeek dayOfWeekFromMenuIndexString(final String dayIndex)
 	{
-		final int day = Integer.parseInt(dayIndex);
-		return DayOfWeek.of(day);
+		final int day;
+		try
+		{
+			day = Integer.parseInt(dayIndex);
+		}
+		catch (final NumberFormatException e)
+		{
+			throw new FoodBotNotificationException("Unable to convert '" + dayIndex + "' to an integer", e);
+		}
+
+		try
+		{
+			return DayOfWeek.of(day);
+		}
+		catch (final DateTimeException e)
+		{
+			throw new FoodBotNotificationException("Invalid day of the week index: " + day, e);
+		}
 	}
 }
