@@ -27,7 +27,8 @@ public class InboundEmailValidator
 
 		final boolean result = subject != null && subject.trim().equalsIgnoreCase(expectedSubject);
 
-		if (!result) {
+		if (!result)
+		{
 			log.info("Expected the received message to have {} as subject, but got {} instead", subject, expectedSubject);
 		}
 

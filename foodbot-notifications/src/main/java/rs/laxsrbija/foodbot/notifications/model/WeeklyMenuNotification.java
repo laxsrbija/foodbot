@@ -12,5 +12,5 @@ public class WeeklyMenuNotification
 	private String sender;
 	private LocalDateTime timeOfArrival;
 	private String rawText;
-	private List<ParsedDailyMenu> parsedDailyMenus = new ArrayList<>();
+	private List<ReceivedMenuItem> receivedMenuItems = new ArrayList<>();
 }
