@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.common.entity.ReceivedMenuItem;
-import rs.laxsrbija.foodbot.common.entity.WeeklyMenuNotification;
 import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
 import rs.laxsrbija.foodbot.notifications.email.OutboundEmailService;
 import rs.laxsrbija.foodbot.notifications.helper.MenuItemFormatter;
@@ -37,14 +36,13 @@ public class NotificationService
 				receivedMenuItems.add(receivedMenuItem);
 			}
 
-			final WeeklyMenuNotification weeklyMenu = WeeklyMenuNotification.builder()
-				.id(123)
-				.sender(inboundMenuEmail.getSender())
-				.dateSent(inboundMenuEmail.getDateSent())
-				.dateReceived(inboundMenuEmail.getDateReceived())
-				.rawText(inboundMenuEmail.getMessage())
-				.receivedMenuItems(receivedMenuItems).build();
-			log.info(weeklyMenu.toString());
+//			final WeeklyMenuNotification weeklyMenu = WeeklyMenuNotification();
+//				.sender(inboundMenuEmail.getSender())
+//				.dateSent(inboundMenuEmail.getDateSent())
+//				.dateReceived(inboundMenuEmail.getDateReceived())
+//				.rawText(inboundMenuEmail.getMessage())
+//				.receivedMenuItems(receivedMenuItems).build();
+//			log.info(weeklyMenu.toString());
 		}
 
 		if (!emailFromServer.isEmpty())

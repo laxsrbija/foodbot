@@ -4,9 +4,9 @@ import java.time.DayOfWeek;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import rs.laxsrbija.foodbot.common.entity.ReceivedMenuItem;
 import rs.laxsrbija.foodbot.notifications.exception.FoodBotNotificationException;
 import rs.laxsrbija.foodbot.notifications.model.ParsedMenuItem;
-import rs.laxsrbija.foodbot.notifications.model.ReceivedMenuItem;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,14 +18,14 @@ public class MenuItemFormatter
 		final String course = rawMenuItem.getCourse();
 		final String salad = rawMenuItem.getSalad();
 
-		final ReceivedMenuItem.ReceivedMenuItemBuilder builder = ReceivedMenuItem.builder();
+		final ReceivedMenuItem receivedMenuItem = new ReceivedMenuItem();
 
 		if (day != null)
 		{
 			try
 			{
 				final DayOfWeek dayOfWeek = Utils.dayOfWeekFromMenuIndexString(day.trim());
-				builder.dayOfWeek(dayOfWeek);
+				receivedMenuItem.setDayOfWeek(dayOfWeek);
 			}
 			catch (final FoodBotNotificationException e)
 			{
@@ -33,16 +33,16 @@ public class MenuItemFormatter
 			}
 		}
 
-		if (course != null)
+		if (course != null && !course.trim().isEmpty())
 		{
-			builder.mainCourse(course.trim());
+			receivedMenuItem.setMainCourse(course.trim());
 		}
 
-		if (salad != null)
+		if (salad != null && !salad.trim().isEmpty())
 		{
-			builder.salad(salad.trim());
+			receivedMenuItem.setSalad(salad.trim());
 		}
 
-		return builder.build();
+		return receivedMenuItem;
 	}
 }

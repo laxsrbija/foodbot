@@ -29,5 +29,7 @@ public class WeeklyMenuNotification
 	private String rawText;
 
 	// TODO https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+	@JoinColumn(name = "notification_id")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ReceivedMenuItem> receivedMenuItems;
 }
