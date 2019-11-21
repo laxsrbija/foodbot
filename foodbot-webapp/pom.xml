@@ -26,12 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>rs.laxsrbija.foodbot</groupId>
-			<artifactId>persistence-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>rs.laxsrbija.foodbot</groupId>
-			<artifactId>core-module</artifactId>
+			<artifactId>common-module</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
