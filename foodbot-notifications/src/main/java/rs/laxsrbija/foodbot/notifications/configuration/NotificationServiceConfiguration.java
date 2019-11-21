@@ -1,5 +1,6 @@
 package rs.laxsrbija.foodbot.notifications.configuration;
 
+import java.util.HashSet;
 import java.util.Set;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,8 @@ import lombok.NoArgsConstructor;
 public class NotificationServiceConfiguration
 {
 	private String expectedSubject;
-	private Set<String> whitelistedSenders;
+	private Set<String> whitelistedSenders = new HashSet<>();
+	private Set<String> menuReviewers = new HashSet<>();
 	private Pop3Configuration pop3;
 	private SmtpConfiguration smtp;
 	private CsvConfiguration csv;

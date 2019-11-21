@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.common.entity.ReceivedMenuItem;
+import rs.laxsrbija.foodbot.common.entity.WeeklyMenuNotification;
+import rs.laxsrbija.foodbot.common.service.WeeklyMenuNotificationService;
+import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
 import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
 import rs.laxsrbija.foodbot.notifications.email.OutboundEmailService;
 import rs.laxsrbija.foodbot.notifications.helper.MenuItemFormatter;
@@ -17,39 +20,69 @@ import rs.laxsrbija.foodbot.notifications.model.ParsedMenuItem;
 @RequiredArgsConstructor
 public class NotificationService
 {
-	private final MenuParserService _menuParserService;
+	private static final String NOTIFICATION_SUBJECT = "FoodBot Weekly Menu Review";
+	private static final String NOTIFICATION_MESSAGE = "Dear reviewer,\n\n"
+		+ "New weekly menu emails are available for review.\nTotal number of pending messages: %d\n\n"
+		+ "Visit the FoodBot administration panel to review them.";
+
+	private final MenuParser _menuParser;
 	private final InboundEmailService _inboundEmailService;
 	private final OutboundEmailService _outboundEmailService;
+	private final NotificationServiceConfiguration _configuration;
+	private final WeeklyMenuNotificationService _weeklyMenuNotificationService;
 
 	public void checkForMenuUpdates()
 	{
 		final List<InboundMenuEmail> emailFromServer = _inboundEmailService.getEmailFromServer();
 
+		if (emailFromServer.isEmpty())
+		{
+			log.info("No new weekly menu messages");
+		}
+
 		for (final InboundMenuEmail inboundMenuEmail : emailFromServer)
 		{
-			final List<ParsedMenuItem> parsedMenuItems = _menuParserService.parseEmail(inboundMenuEmail);
-			final List<ReceivedMenuItem> receivedMenuItems = new ArrayList<>();
-
-			for (final ParsedMenuItem parsedMenuItem : parsedMenuItems)
-			{
-				final ReceivedMenuItem receivedMenuItem = MenuItemFormatter.formatMenuItem(parsedMenuItem);
-				receivedMenuItems.add(receivedMenuItem);
-			}
-
-//			final WeeklyMenuNotification weeklyMenu = WeeklyMenuNotification();
-//				.sender(inboundMenuEmail.getSender())
-//				.dateSent(inboundMenuEmail.getDateSent())
-//				.dateReceived(inboundMenuEmail.getDateReceived())
-//				.rawText(inboundMenuEmail.getMessage())
-//				.receivedMenuItems(receivedMenuItems).build();
-//			log.info(weeklyMenu.toString());
+			processReceivedEmail(inboundMenuEmail);
 		}
 
-		if (!emailFromServer.isEmpty())
+		log.info("New weekly menu emails have been received. Notifying reviewers...");
+		final long pendingMessages = _weeklyMenuNotificationService.count();
+		notifyReviewers(pendingMessages);
+	}
+
+	private void processReceivedEmail(final InboundMenuEmail inboundMenuEmail)
+	{
+		final List<ParsedMenuItem> parsedMenuItems = _menuParser.parseEmail(inboundMenuEmail);
+		final List<ReceivedMenuItem> receivedMenuItems = new ArrayList<>();
+
+		for (final ParsedMenuItem parsedMenuItem : parsedMenuItems)
 		{
-			final String message = "Hello, new menu emails have been received.\n"
-				+ "Total number of new emails: " + emailFromServer.size();
-			//_outboundEmailService.sendEmail("lazars@niri-ic.com", "Weekly menu received", message);
+			final ReceivedMenuItem receivedMenuItem = MenuItemFormatter.formatMenuItem(parsedMenuItem);
+			receivedMenuItems.add(receivedMenuItem);
 		}
+
+		final WeeklyMenuNotification weeklyMenu = new WeeklyMenuNotification();
+		weeklyMenu.setSender(inboundMenuEmail.getSender());
+		weeklyMenu.setDateSent(inboundMenuEmail.getDateSent());
+		weeklyMenu.setDateReceived(inboundMenuEmail.getDateReceived());
+		weeklyMenu.setRawText(inboundMenuEmail.getMessage());
+		weeklyMenu.setReceivedMenuItems(receivedMenuItems);
+
+		_weeklyMenuNotificationService.save(weeklyMenu);
+	}
+
+	private void notifyReviewers(final long numberOfMessages)
+	{
+		final String message = getNotificationMessage(numberOfMessages);
+		for (final String reviewer : _configuration.getMenuReviewers())
+		{
+			_outboundEmailService.sendEmail(reviewer, NOTIFICATION_SUBJECT, message);
+		}
+	}
+
+	// TODO: Replace with Handlebars HTML in the future
+	private static String getNotificationMessage(final long numberOfMessages)
+	{
+		return String.format(NOTIFICATION_MESSAGE, numberOfMessages);
 	}
 }

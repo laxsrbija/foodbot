@@ -7,17 +7,19 @@ import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.mailer.config.TransportStrategy;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OutboundEmailService
 {
-	private final NotificationServiceConfiguration _notificationServiceConfiguration;
+	private final NotificationServiceConfiguration _configuration;
 
 	public void sendEmail(final String recipient, final String subject, final String content)
 	{
-		final NotificationServiceConfiguration.SmtpConfiguration smtp = _notificationServiceConfiguration.getSmtp();
+		final NotificationServiceConfiguration.SmtpConfiguration smtp = _configuration.getSmtp();
 		final String senderAddress = smtp.getUsername();
 		final String senderDisplayName = smtp.getUsername();
 
@@ -25,16 +27,17 @@ public class OutboundEmailService
 			.to(recipient)
 			.from(senderDisplayName, senderAddress)
 			.withSubject(subject)
-			.withPlainText(content) // TODO: Replace with Handlebars HTML in the future
+			.withPlainText(content)
 			.buildEmail();
 
 		final Mailer mailer = getMailer();
 		mailer.sendMail(email);
+		log.info("Successfully sent an email");
 	}
 
 	private Mailer getMailer()
 	{
-		final NotificationServiceConfiguration.SmtpConfiguration smtp = _notificationServiceConfiguration.getSmtp();
+		final NotificationServiceConfiguration.SmtpConfiguration smtp = _configuration.getSmtp();
 		return MailerBuilder
 			.withSMTPServerHost(smtp.getHost())
 			.withSMTPServerPort(smtp.getPort())

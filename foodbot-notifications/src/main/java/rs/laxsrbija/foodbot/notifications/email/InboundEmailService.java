@@ -64,6 +64,7 @@ public class InboundEmailService
 					continue;
 				}
 
+				log.info("Menu email successfully verified");
 				final InboundMenuEmail inboundMenuEmail = InboundMenuEmail.builder()
 					.sender(receivedEmail.getFrom().getEmail())
 					.dateSent(Utils.fromDate(receivedEmail.getSentDate()))
