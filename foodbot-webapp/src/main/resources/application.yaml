@@ -1,6 +1,5 @@
 foodbot:
   messaging:
-    chat-id: 19:e8079486ae6f4927bee78fdb2424d1b0@thread.skype
     script-path: /home/lazar/Documents/python-foodbot/
     script-name: foodbot.py
 spring:
