@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import rs.laxsrbija.foodbot.common.entity.ReceivedMenuItem;
-import rs.laxsrbija.foodbot.common.entity.MenuReviewEntity;
+import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
+import rs.laxsrbija.foodbot.common.model.entity.MenuReviewEntity;
 import rs.laxsrbija.foodbot.common.service.MenuReviewService;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
 import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
@@ -53,12 +53,12 @@ public class NotificationService
 	private void processReceivedEmail(final InboundMenuEmail inboundMenuEmail)
 	{
 		final List<ParsedMenuItem> parsedMenuItems = _menuParser.parseEmail(inboundMenuEmail);
-		final List<ReceivedMenuItem> receivedMenuItems = new ArrayList<>();
+		final List<ReceivedMenuItemEntity> receivedMenuItemEntities = new ArrayList<>();
 
 		for (final ParsedMenuItem parsedMenuItem : parsedMenuItems)
 		{
-			final ReceivedMenuItem receivedMenuItem = MenuItemFormatter.formatMenuItem(parsedMenuItem);
-			receivedMenuItems.add(receivedMenuItem);
+			final ReceivedMenuItemEntity receivedMenuItemEntity = MenuItemFormatter.formatMenuItem(parsedMenuItem);
+			receivedMenuItemEntities.add(receivedMenuItemEntity);
 		}
 
 		final MenuReviewEntity weeklyMenu = new MenuReviewEntity();
@@ -66,7 +66,7 @@ public class NotificationService
 		weeklyMenu.setDateSent(inboundMenuEmail.getDateSent());
 		weeklyMenu.setDateReceived(inboundMenuEmail.getDateReceived());
 		weeklyMenu.setRawText(inboundMenuEmail.getMessage());
-		weeklyMenu.setReceivedMenuItems(receivedMenuItems);
+		weeklyMenu.set_receivedMenuItemEntities(receivedMenuItemEntities);
 
 		_menuReviewService.save(weeklyMenu);
 	}

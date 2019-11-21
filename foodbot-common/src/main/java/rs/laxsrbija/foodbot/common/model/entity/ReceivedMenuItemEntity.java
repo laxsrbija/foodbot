@@ -1,4 +1,4 @@
-package rs.laxsrbija.foodbot.common.entity;
+package rs.laxsrbija.foodbot.common.model.entity;
 
 import java.time.DayOfWeek;
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @Table
 @Entity
 @NoArgsConstructor
-public class ReceivedMenuItem
+public class ReceivedMenuItemEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

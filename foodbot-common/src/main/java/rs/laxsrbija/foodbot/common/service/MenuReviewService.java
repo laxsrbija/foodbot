@@ -1,8 +1,10 @@
 package rs.laxsrbija.foodbot.common.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
-import rs.laxsrbija.foodbot.common.entity.MenuReviewEntity;
+import rs.laxsrbija.foodbot.common.model.entity.MenuReviewEntity;
 import rs.laxsrbija.foodbot.common.repository.MenuReviewRepository;
 
 @Service
@@ -15,9 +17,14 @@ public class MenuReviewService
 		return _menuReviewRepository.save(menuReviewEntity);
 	}
 
-	public Iterable<MenuReviewEntity> findAll()
+	public List<MenuReviewEntity> findAll()
 	{
-		return _menuReviewRepository.findAll();
+		final List<MenuReviewEntity> menuReviewEntities = new ArrayList<>();
+
+		final Iterable<MenuReviewEntity> menuReviewEntityIterable = _menuReviewRepository.findAll();
+		menuReviewEntityIterable.forEach(menuReviewEntities::add);
+
+		return menuReviewEntities;
 	}
 
 	public long count()
