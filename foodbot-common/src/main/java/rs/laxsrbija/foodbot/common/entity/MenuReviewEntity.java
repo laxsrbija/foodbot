@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Table
 @Entity
 @NoArgsConstructor
-public class WeeklyMenuNotification
+public class MenuReviewEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
