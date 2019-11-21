@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.common.entity.ReceivedMenuItem;
-import rs.laxsrbija.foodbot.common.entity.WeeklyMenuNotification;
-import rs.laxsrbija.foodbot.common.service.WeeklyMenuNotificationService;
+import rs.laxsrbija.foodbot.common.entity.MenuReviewEntity;
+import rs.laxsrbija.foodbot.common.service.MenuReviewService;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
 import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
 import rs.laxsrbija.foodbot.notifications.email.OutboundEmailService;
@@ -29,7 +29,7 @@ public class NotificationService
 	private final InboundEmailService _inboundEmailService;
 	private final OutboundEmailService _outboundEmailService;
 	private final NotificationServiceConfiguration _configuration;
-	private final WeeklyMenuNotificationService _weeklyMenuNotificationService;
+	private final MenuReviewService _menuReviewService;
 
 	public void checkForMenuUpdates()
 	{
@@ -46,7 +46,7 @@ public class NotificationService
 		}
 
 		log.info("New weekly menu emails have been received. Notifying reviewers...");
-		final long pendingMessages = _weeklyMenuNotificationService.count();
+		final long pendingMessages = _menuReviewService.count();
 		notifyReviewers(pendingMessages);
 	}
 
@@ -61,14 +61,14 @@ public class NotificationService
 			receivedMenuItems.add(receivedMenuItem);
 		}
 
-		final WeeklyMenuNotification weeklyMenu = new WeeklyMenuNotification();
+		final MenuReviewEntity weeklyMenu = new MenuReviewEntity();
 		weeklyMenu.setSender(inboundMenuEmail.getSender());
 		weeklyMenu.setDateSent(inboundMenuEmail.getDateSent());
 		weeklyMenu.setDateReceived(inboundMenuEmail.getDateReceived());
 		weeklyMenu.setRawText(inboundMenuEmail.getMessage());
 		weeklyMenu.setReceivedMenuItems(receivedMenuItems);
 
-		_weeklyMenuNotificationService.save(weeklyMenu);
+		_menuReviewService.save(weeklyMenu);
 	}
 
 	private void notifyReviewers(final long numberOfMessages)
