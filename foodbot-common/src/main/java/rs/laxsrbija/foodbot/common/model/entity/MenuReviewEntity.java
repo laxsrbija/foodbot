@@ -1,4 +1,4 @@
-package rs.laxsrbija.foodbot.common.entity;
+package rs.laxsrbija.foodbot.common.model.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,5 +30,5 @@ public class MenuReviewEntity
 
 	@JoinColumn(name = "notification_id")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ReceivedMenuItem> receivedMenuItems;
+	private List<ReceivedMenuItemEntity> _receivedMenuItemEntities;
 }
