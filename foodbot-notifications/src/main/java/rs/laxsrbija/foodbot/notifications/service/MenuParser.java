@@ -5,8 +5,7 @@ import java.util.*;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.fasterxml.jackson.dataformat.csv.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
@@ -16,14 +15,14 @@ import rs.laxsrbija.foodbot.notifications.model.ParsedMenuItem;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MenuParserService
+public class MenuParser
 {
 	private static final String COLUMN_DAY = "day";
 	private static final String COLUMN_COURSE = "course";
 	private static final String COLUMN_SALAD = "salad";
 
 	private final NotificationServiceConfiguration _notificationServiceConfiguration;
-	private final CsvMapper _csvMapper = new CsvMapper();
+	private final CsvMapper _csvMapper = new CsvMapper(new CsvFactory().enable(CsvParser.Feature.SKIP_EMPTY_LINES));
 
 	public List<ParsedMenuItem> parseEmail(final InboundMenuEmail inboundMenuEmail)
 	{
@@ -49,7 +48,6 @@ public class MenuParserService
 		final List<ParsedMenuItem> parsedMenuItemList = new ArrayList<>();
 
 		final Reader stringReader = new StringReader(emailContent);
-
 		final CsvSchema csvSchema = getCsvSchema();
 		final ObjectReader objectReader = _csvMapper.readerFor(ParsedMenuItem.class).with(csvSchema);
 		final MappingIterator<Object> iterator;
@@ -85,6 +83,6 @@ public class MenuParserService
 			csvSchemaBuilder.setColumnSeparator(csv.getSeparator());
 		}
 
-		return csvSchemaBuilder.build().withHeader();
+		return csvSchemaBuilder.build().withoutHeader();
 	}
 }
