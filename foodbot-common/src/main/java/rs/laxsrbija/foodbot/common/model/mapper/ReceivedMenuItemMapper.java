@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.common.exception.FoodBotException;
-import rs.laxsrbija.foodbot.common.helper.DateUtils;
+import rs.laxsrbija.foodbot.common.helper.DayOfWeekUtils;
 import rs.laxsrbija.foodbot.common.model.dto.ReceivedMenuItemDto;
 import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
 
@@ -41,7 +41,7 @@ class ReceivedMenuItemMapper
 		{
 			try
 			{
-				entityBuilder.dayOfWeek(DateUtils.dayOfWeekFromIndex(dayOfWeekIndex));
+				entityBuilder.dayOfWeek(DayOfWeekUtils.dayOfWeekFromIndex(dayOfWeekIndex));
 			}
 			catch (final FoodBotException e)
 			{

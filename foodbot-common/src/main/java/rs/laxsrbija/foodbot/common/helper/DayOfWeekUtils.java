@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import rs.laxsrbija.foodbot.common.exception.FoodBotException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DateUtils
+public class DayOfWeekUtils
 {
 	public static LocalDateTime fromDate(final Date date)
 	{

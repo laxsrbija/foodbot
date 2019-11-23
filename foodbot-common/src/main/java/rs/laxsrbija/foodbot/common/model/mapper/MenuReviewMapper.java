@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import rs.laxsrbija.foodbot.common.helper.IsoDateTimeConverter;
+import rs.laxsrbija.foodbot.common.helper.DateTimeConverter;
 import rs.laxsrbija.foodbot.common.model.dto.MenuReviewDto;
 import rs.laxsrbija.foodbot.common.model.dto.ReceivedMenuItemDto;
 import rs.laxsrbija.foodbot.common.model.entity.MenuReviewEntity;
@@ -24,13 +24,13 @@ public class MenuReviewMapper
 		final LocalDateTime dateReceived = menuReviewEntity.getDateReceived();
 		if (dateReceived != null)
 		{
-			dtoBuilder.dateReceived(IsoDateTimeConverter.fromLocalDateTime(dateReceived));
+			dtoBuilder.dateReceived(DateTimeConverter.fromLocalDateTime(dateReceived));
 		}
 
 		final LocalDateTime dateSent = menuReviewEntity.getDateSent();
 		if (dateSent != null)
 		{
-			dtoBuilder.dateSent(IsoDateTimeConverter.fromLocalDateTime(dateSent));
+			dtoBuilder.dateSent(DateTimeConverter.fromLocalDateTime(dateSent));
 		}
 
 		final List<ReceivedMenuItemEntity> receivedMenuItemEntities = menuReviewEntity.getReceivedMenuItemEntities();
@@ -56,14 +56,14 @@ public class MenuReviewMapper
 		final String dateReceived = menuReviewDto.getDateReceived();
 		if (dateReceived != null && !dateReceived.trim().isEmpty())
 		{
-			final LocalDateTime localDateTime = IsoDateTimeConverter.toLocalDateTime(dateReceived);
+			final LocalDateTime localDateTime = DateTimeConverter.toLocalDateTime(dateReceived);
 			entityBuilder.dateReceived(localDateTime);
 		}
 
 		final String dateSent = menuReviewDto.getDateSent();
 		if (dateSent != null && !dateSent.trim().isEmpty())
 		{
-			final LocalDateTime localDateTime = IsoDateTimeConverter.toLocalDateTime(dateSent);
+			final LocalDateTime localDateTime = DateTimeConverter.toLocalDateTime(dateSent);
 			entityBuilder.dateSent(localDateTime);
 		}
 
