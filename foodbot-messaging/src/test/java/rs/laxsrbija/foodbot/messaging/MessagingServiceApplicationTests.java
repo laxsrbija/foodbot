@@ -11,7 +11,7 @@ public class MessagingServiceApplicationTests
 {
 
 	@Test
-	public void contextLoads()
+	public void contextLoads() //NOSONAR
 	{
 	}
 }

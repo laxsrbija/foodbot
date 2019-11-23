@@ -8,7 +8,7 @@ public class WebApplicationTests
 {
 
 	@Test
-	public void contextLoads()
+	public void contextLoads() //NOSONAR
 	{
 	}
 }

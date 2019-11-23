@@ -8,7 +8,7 @@ public class CommonModuleApplicationTests
 {
 
 	@Test
-	public void contextLoads()
+	public void contextLoads() //NOSONAR
 	{
 	}
 }

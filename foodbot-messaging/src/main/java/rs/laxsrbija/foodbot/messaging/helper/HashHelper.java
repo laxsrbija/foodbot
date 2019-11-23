@@ -35,7 +35,7 @@ public class HashHelper
 		for (int i = 0; i < sha256Parts.size(); i++)
 		{
 			final long comparisonResult = sha256Parts.get(i) ^ checkSumParts.get(i % 2);
-			result += toLittleEndianHexString(comparisonResult);
+			result += toLittleEndianHexString(comparisonResult); //NOSONAR Loop has a total of 4 repetitions
 		}
 
 		return result;
@@ -101,14 +101,14 @@ public class HashHelper
 	// Returns a zero-padded (8 chars long) hex-string of the little-endian representation of the argument.
 	private static String toLittleEndianHexString(final long n)
 	{
-		String result = "";
+		final StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < 4; i++)
 		{
-			result += HEX_CHARS.charAt((int)(n >> (i * 8 + 4) & 15L));
-			result += HEX_CHARS.charAt((int)(n >> (i * 8) & 15L));
+			sb.append(HEX_CHARS.charAt((int)(n >> (i * 8 + 4) & 15L)));
+			sb.append(HEX_CHARS.charAt((int)(n >> (i * 8) & 15L)));
 		}
 
-		return result;
+		return sb.toString();
 	}
 
 	private static List<Long> toUint32Array(final String message)

@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.common.exception.FoodBotException;
-import rs.laxsrbija.foodbot.common.helper.DateUtils;
+import rs.laxsrbija.foodbot.common.helper.DayOfWeekUtils;
 import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
 import rs.laxsrbija.foodbot.notifications.model.ParsedMenuItem;
 
@@ -25,7 +25,7 @@ public class MenuItemFormatter
 		{
 			try
 			{
-				final DayOfWeek dayOfWeek = DateUtils.dayOfWeekFromIndexString(day.trim());
+				final DayOfWeek dayOfWeek = DayOfWeekUtils.dayOfWeekFromIndexString(day.trim());
 				receivedMenuItemEntity.setDayOfWeek(dayOfWeek);
 			}
 			catch (final FoodBotException e)

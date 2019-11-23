@@ -8,7 +8,7 @@ public class NotificationsServiceApplicationTests
 {
 
 	@Test
-	public void contextLoads()
+	public void contextLoads() //NOSONAR
 	{
 	}
 }
