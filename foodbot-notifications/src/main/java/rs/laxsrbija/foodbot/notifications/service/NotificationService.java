@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import rs.laxsrbija.foodbot.common.entity.ReceivedMenuItem;
-import rs.laxsrbija.foodbot.common.entity.WeeklyMenuNotification;
-import rs.laxsrbija.foodbot.common.service.WeeklyMenuNotificationService;
+import rs.laxsrbija.foodbot.common.model.entity.MenuReviewEntity;
+import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
+import rs.laxsrbija.foodbot.common.service.MenuReviewService;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
 import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
 import rs.laxsrbija.foodbot.notifications.email.OutboundEmailService;
@@ -29,7 +29,7 @@ public class NotificationService
 	private final InboundEmailService _inboundEmailService;
 	private final OutboundEmailService _outboundEmailService;
 	private final NotificationServiceConfiguration _configuration;
-	private final WeeklyMenuNotificationService _weeklyMenuNotificationService;
+	private final MenuReviewService _menuReviewService;
 
 	public void checkForMenuUpdates()
 	{
@@ -38,6 +38,7 @@ public class NotificationService
 		if (emailFromServer.isEmpty())
 		{
 			log.info("No new weekly menu messages");
+			return;
 		}
 
 		for (final InboundMenuEmail inboundMenuEmail : emailFromServer)
@@ -46,29 +47,29 @@ public class NotificationService
 		}
 
 		log.info("New weekly menu emails have been received. Notifying reviewers...");
-		final long pendingMessages = _weeklyMenuNotificationService.count();
+		final long pendingMessages = _menuReviewService.count();
 		notifyReviewers(pendingMessages);
 	}
 
 	private void processReceivedEmail(final InboundMenuEmail inboundMenuEmail)
 	{
 		final List<ParsedMenuItem> parsedMenuItems = _menuParser.parseEmail(inboundMenuEmail);
-		final List<ReceivedMenuItem> receivedMenuItems = new ArrayList<>();
+		final List<ReceivedMenuItemEntity> receivedMenuItemEntities = new ArrayList<>();
 
 		for (final ParsedMenuItem parsedMenuItem : parsedMenuItems)
 		{
-			final ReceivedMenuItem receivedMenuItem = MenuItemFormatter.formatMenuItem(parsedMenuItem);
-			receivedMenuItems.add(receivedMenuItem);
+			final ReceivedMenuItemEntity receivedMenuItemEntity = MenuItemFormatter.formatMenuItem(parsedMenuItem);
+			receivedMenuItemEntities.add(receivedMenuItemEntity);
 		}
 
-		final WeeklyMenuNotification weeklyMenu = new WeeklyMenuNotification();
+		final MenuReviewEntity weeklyMenu = new MenuReviewEntity();
 		weeklyMenu.setSender(inboundMenuEmail.getSender());
 		weeklyMenu.setDateSent(inboundMenuEmail.getDateSent());
 		weeklyMenu.setDateReceived(inboundMenuEmail.getDateReceived());
 		weeklyMenu.setRawText(inboundMenuEmail.getMessage());
-		weeklyMenu.setReceivedMenuItems(receivedMenuItems);
+		weeklyMenu.set_receivedMenuItemEntities(receivedMenuItemEntities);
 
-		_weeklyMenuNotificationService.save(weeklyMenu);
+		_menuReviewService.save(weeklyMenu);
 	}
 
 	private void notifyReviewers(final long numberOfMessages)

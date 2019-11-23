@@ -20,10 +20,9 @@
 
 	<modules>
 		<module>foodbot-common</module>
-		<module>persistence-module</module>
 		<module>foodbot-messaging</module>
 		<module>foodbot-notifications</module>
-		<module>webapp</module>
+		<module>foodbot-webapp</module>
 	</modules>
 
 </project>
