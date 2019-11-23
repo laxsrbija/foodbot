@@ -1,0 +1,32 @@
+foodbot:
+  messaging:
+    username: <SKYPE USERNAME>
+    password: <SKYPE PASSWORD>
+    shorter-token-lifespan: true
+  notifications:
+    expected-subject: <EXPECTED EMAIL SUBJECT>
+    whitelisted-senders:
+      - <WHITELISTED SENDER EMAIL>
+      - <WHITELISTED SENDER EMAIL>
+      - ...
+    menu-reviewers:
+      - <REVIEWER EMAIL ADDRESS>
+      - <REVIEWER EMAIL ADDRESS>
+      - ...
+    pop3:
+      host: pop.gmail.com
+      port: 995
+      username: <POP3 SERVER USERNAME>
+      password: <POP3 SERVER PASSWORD>
+    smtp:
+      host: smtp.gmail.com
+      port: 465
+      username: <SMTP SERVER USERNAME>
+      password: <SMTP SERVER PASSWORD>
+      display-name: FoodBot
+    csv:
+      separator: ;
+spring:
+  h2:
+    console:
+      enabled: true
