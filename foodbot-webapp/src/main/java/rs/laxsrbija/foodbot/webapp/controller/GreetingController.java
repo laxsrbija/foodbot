@@ -21,7 +21,9 @@ public class GreetingController
 	@GetMapping
 	public List<GreetingDto> getAllGreetings()
 	{
-		return _greetingService.findAll().stream().map(GreetingMapper::toDto).collect(Collectors.toList());
+		return _greetingService.findAll().stream()
+			.map(GreetingMapper::toDto)
+			.collect(Collectors.toList());
 	}
 
 	@PostMapping
