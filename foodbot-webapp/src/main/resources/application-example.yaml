@@ -1,4 +1,17 @@
 foodbot:
+  default-placeholders:
+    greeting:
+      key: MORNING_GREETING
+      icon: sun
+      description: Random greeting message
+    main-course:
+      key: MEAL_MAIN_COURSE
+      icon: food
+      description: Main course of the day
+    salad:
+      key: MEAL_SALAD
+      icon: salad
+      description: Salad of the day
   messaging:
     username: <SKYPE USERNAME>
     password: <SKYPE PASSWORD>
