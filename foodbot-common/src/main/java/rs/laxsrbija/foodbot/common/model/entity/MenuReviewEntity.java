@@ -30,5 +30,5 @@ public class MenuReviewEntity
 
 	@JoinColumn(name = "notification_id")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ReceivedMenuItemEntity> _receivedMenuItemEntities;
+	private List<ReceivedMenuItemEntity> receivedMenuItemEntities;
 }
