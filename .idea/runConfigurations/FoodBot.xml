@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FoodBot" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="webapp" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="rs.laxsrbija.foodbot.webapp.WebApplication" />
+    <option name="VM_PARAMETERS" value="-Dspring.config.location=&quot;file:application-dev.yaml&quot;" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
