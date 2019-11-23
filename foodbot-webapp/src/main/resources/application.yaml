@@ -1,0 +1,10 @@
+foodbot:
+  messaging:
+    script-path: /home/lazar/Documents/python-foodbot/
+    script-name: foodbot.py
+spring:
+  h2:
+    console:
+      enabled: true
+#  profiles:
+#    active: pi

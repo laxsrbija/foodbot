@@ -67,7 +67,7 @@ public class NotificationService
 		weeklyMenu.setDateSent(inboundMenuEmail.getDateSent());
 		weeklyMenu.setDateReceived(inboundMenuEmail.getDateReceived());
 		weeklyMenu.setRawText(inboundMenuEmail.getMessage());
-		weeklyMenu.set_receivedMenuItemEntities(receivedMenuItemEntities);
+		weeklyMenu.setReceivedMenuItemEntities(receivedMenuItemEntities);
 
 		_menuReviewService.save(weeklyMenu);
 	}

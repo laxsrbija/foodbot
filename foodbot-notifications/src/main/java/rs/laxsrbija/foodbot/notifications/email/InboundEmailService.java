@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration.Pop3Configuration;
-import rs.laxsrbija.foodbot.notifications.helper.Utils;
+import rs.laxsrbija.foodbot.common.helper.DateUtils;
 import rs.laxsrbija.foodbot.notifications.model.InboundMenuEmail;
 import rs.laxsrbija.foodbot.notifications.validator.InboundEmailValidator;
 
@@ -67,7 +67,7 @@ public class InboundEmailService
 				log.info("Menu email successfully verified");
 				final InboundMenuEmail inboundMenuEmail = InboundMenuEmail.builder()
 					.sender(receivedEmail.getFrom().getEmail())
-					.dateSent(Utils.fromDate(receivedEmail.getSentDate()))
+					.dateSent(DateUtils.fromDate(receivedEmail.getSentDate()))
 					.dateReceived(LocalDateTime.now())
 					.message(getEmailBody(receivedEmail)).build();
 				emails.add(inboundMenuEmail);

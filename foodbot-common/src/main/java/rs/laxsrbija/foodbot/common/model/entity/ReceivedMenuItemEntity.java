@@ -7,8 +7,10 @@ import lombok.*;
 @Data
 @Table
 @Entity
+@Builder
 @NoArgsConstructor
-public class ReceivedMenuItemEntity
+@AllArgsConstructor
+public class ReceivedMenuItemEntity implements Comparable<ReceivedMenuItemEntity>
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,4 +24,10 @@ public class ReceivedMenuItemEntity
 
 	@Column
 	private String salad;
+
+	@Override
+	public int compareTo(final ReceivedMenuItemEntity dailyMenu)
+	{
+		return dayOfWeek.compareTo(dailyMenu.getDayOfWeek());
+	}
 }

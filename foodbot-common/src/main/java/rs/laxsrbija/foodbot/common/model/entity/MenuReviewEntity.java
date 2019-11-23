@@ -3,13 +3,14 @@ package rs.laxsrbija.foodbot.common.model.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Table
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class MenuReviewEntity
 {
 	@Id
@@ -30,5 +31,5 @@ public class MenuReviewEntity
 
 	@JoinColumn(name = "notification_id")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ReceivedMenuItemEntity> _receivedMenuItemEntities;
+	private List<ReceivedMenuItemEntity> receivedMenuItemEntities;
 }

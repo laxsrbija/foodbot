@@ -9,16 +9,18 @@ import rs.laxsrbija.foodbot.common.repository.GreetingRepository;
 
 @Service
 @RequiredArgsConstructor
-public class GreetingService
+public class GreetingService implements EntityServiceInterface<GreetingEntity, Long>
 {
 	private final GreetingRepository _greetingRepository;
 	private final Random _random = new Random();
 
+	@Override
 	public GreetingEntity save(final GreetingEntity greetingEntity)
 	{
 		return _greetingRepository.save(greetingEntity);
 	}
 
+	@Override
 	public List<GreetingEntity> findAll()
 	{
 		final List<GreetingEntity> greetingEntities = new ArrayList<>();
@@ -27,6 +29,23 @@ public class GreetingService
 		greetingEntityIterable.forEach(greetingEntities::add);
 
 		return greetingEntities;
+	}
+
+	public void deleteAll()
+	{
+		_greetingRepository.deleteAll();
+	}
+
+	@Override
+	public Optional<GreetingEntity> findById(final Long id)
+	{
+		return _greetingRepository.findById(id);
+	}
+
+	@Override
+	public void deleteById(final Long id)
+	{
+		_greetingRepository.deleteById(id);
 	}
 
 	public GreetingEntity random()
@@ -41,20 +60,5 @@ public class GreetingService
 
 		final int randomIndex = _random.nextInt(size);
 		return greetings.get(randomIndex);
-	}
-
-	public void deleteAll()
-	{
-		_greetingRepository.deleteAll();
-	}
-
-	public Optional<GreetingEntity> findById(final Long id)
-	{
-		return _greetingRepository.findById(id);
-	}
-
-	public void deleteById(final Long id)
-	{
-		_greetingRepository.deleteById(id);
 	}
 }
