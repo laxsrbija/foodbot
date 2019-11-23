@@ -11,9 +11,9 @@ import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ReceivedMenuItemMapper
+class ReceivedMenuItemMapper
 {
-	public static ReceivedMenuItemDto toDto(final ReceivedMenuItemEntity receivedMenuItemEntity)
+	static ReceivedMenuItemDto toDto(final ReceivedMenuItemEntity receivedMenuItemEntity)
 	{
 		final ReceivedMenuItemDto.ReceivedMenuItemDtoBuilder dtoBuilder = ReceivedMenuItemDto.builder()
 			.id(receivedMenuItemEntity.getId())
@@ -29,7 +29,7 @@ public class ReceivedMenuItemMapper
 		return dtoBuilder.build();
 	}
 
-	public static ReceivedMenuItemEntity fromDto(final ReceivedMenuItemDto receivedMenuItemDto)
+	static ReceivedMenuItemEntity fromDto(final ReceivedMenuItemDto receivedMenuItemDto)
 	{
 		final ReceivedMenuItemEntity.ReceivedMenuItemEntityBuilder entityBuilder = ReceivedMenuItemEntity.builder()
 			.id(receivedMenuItemDto.getId())
