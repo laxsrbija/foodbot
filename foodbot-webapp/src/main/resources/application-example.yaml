@@ -15,6 +15,7 @@ foodbot:
   messaging:
     username: <SKYPE USERNAME>
     password: <SKYPE PASSWORD>
+    group-id: <SKYPE GROUP ID>
     shorter-token-lifespan: true
   notifications:
     expected-subject: <EXPECTED EMAIL SUBJECT>

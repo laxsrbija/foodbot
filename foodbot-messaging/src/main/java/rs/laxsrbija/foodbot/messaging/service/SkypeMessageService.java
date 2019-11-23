@@ -8,10 +8,10 @@ import kong.unirest.*;
 import kong.unirest.json.JSONObject;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import rs.laxsrbija.foodbot.messaging.configuration.MessagingServiceConfiguration;
 import rs.laxsrbija.foodbot.messaging.exception.FoodBotMessagingException;
 import rs.laxsrbija.foodbot.messaging.helper.URLHelpers;
 import rs.laxsrbija.foodbot.messaging.helper.Utils;
-import rs.laxsrbija.foodbot.messaging.model.Message;
 import rs.laxsrbija.foodbot.messaging.model.RegistrationToken;
 
 @Slf4j
@@ -24,18 +24,20 @@ public class SkypeMessageService implements MessageService
 	private static final String ORIGINAL_ARRIVAL_TIME = "OriginalArrivalTime";
 
 	private final SkypeTokenService _skypeTokenService;
+	private final MessagingServiceConfiguration _configuration;
 
 	@Override
-	public Optional<LocalDateTime> sendMessage(final Message message)
+	public Optional<LocalDateTime> sendMessage(final String message)
 	{
 		final RegistrationToken registrationToken = _skypeTokenService.getValidRegistrationToken();
 
 		final String outgoingMessageTimestamp = String.valueOf(Instant.now().getEpochSecond());
 		final OutgoingMessage outgoingMessage = OutgoingMessage.builder()
-			.content(message.getMessageText())
+			.content(message)
 			.clientmessageid(outgoingMessageTimestamp).build();
 
-		final String messagesURL = URLHelpers.getMessagesURL(registrationToken, message);
+		final String groupId = _configuration.getGroupId();
+		final String messagesURL = URLHelpers.getMessagesURL(registrationToken, groupId);
 		final HttpResponse<JsonNode> messageResponse = Unirest.post(messagesURL)
 			.header(HEADER_CONTENT_TYPE, "application/json")
 			.header(HEADER_REGISTRATION_TOKEN, registrationToken.getToken())
