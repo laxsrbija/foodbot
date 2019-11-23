@@ -20,7 +20,6 @@
 
 	<modules>
 		<module>foodbot-common</module>
-		<module>persistence-module</module>
 		<module>foodbot-messaging</module>
 		<module>foodbot-notifications</module>
 		<module>foodbot-webapp</module>
