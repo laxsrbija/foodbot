@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
 import rs.laxsrbija.foodbot.common.model.entity.MenuReviewEntity;
+import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
 import rs.laxsrbija.foodbot.common.service.MenuReviewService;
 import rs.laxsrbija.foodbot.notifications.configuration.NotificationServiceConfiguration;
 import rs.laxsrbija.foodbot.notifications.email.InboundEmailService;
@@ -38,6 +38,7 @@ public class NotificationService
 		if (emailFromServer.isEmpty())
 		{
 			log.info("No new weekly menu messages");
+			return;
 		}
 
 		for (final InboundMenuEmail inboundMenuEmail : emailFromServer)
