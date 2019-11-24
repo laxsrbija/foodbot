@@ -47,5 +47,18 @@ spring:
   h2:
     console:
       enabled: true
+#  Alternatively, you can use a persistent database, like MariaDB
+#  datasource:
+#    url: jdbc:mariadb://<MARIADB SERVER>:<MARIADB PORT>/<DATABASE NAME>
+#    username: <MARIADB USERNAME>
+#    password: <MARIADB PASSWORD>
+#    driver-class-name: org.mariadb.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#      generate-ddl: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MariaDB103Dialect
   profiles:
     active: development
