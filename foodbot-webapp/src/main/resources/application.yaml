@@ -13,7 +13,7 @@ foodbot:
       icon: salad
       description: Salad of the day
   scheduling:
-    daily-menu-notification-schedule: 0 0 9 * * *
+    menu-notification-schedule: 0 0 9 * * *
     menu-update-check-schedule: 0 0 * * * SUN,MON
   messaging:
     username: <SKYPE USERNAME>

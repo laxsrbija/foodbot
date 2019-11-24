@@ -6,83 +6,51 @@
 	<parent>
 		<groupId>rs.laxsrbija.foodbot</groupId>
 		<artifactId>foodbot-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>${revision}</version>
 	</parent>
 
-	<artifactId>webapp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>foodbot-webapp</artifactId>
+	<version>${revision}</version>
 	<name>FoodBot :: Web App</name>
 	<packaging>jar</packaging>
-
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>rs.laxsrbija.foodbot</groupId>
-			<artifactId>messaging-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>foodbot-messaging</artifactId>
+			<version>${revision}</version>
 		</dependency>
 		<dependency>
 			<groupId>rs.laxsrbija.foodbot</groupId>
-			<artifactId>common-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>foodbot-common</artifactId>
+			<version>${revision}</version>
 		</dependency>
 		<dependency>
 			<groupId>rs.laxsrbija.foodbot</groupId>
-			<artifactId>notifications-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>foodbot-notifications</artifactId>
+			<version>${revision}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
-			<version>1.8</version>
+			<version>${commons-text.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
+			<version>${swagger.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mariadb.jdbc</groupId>
-			<artifactId>mariadb-java-client</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
