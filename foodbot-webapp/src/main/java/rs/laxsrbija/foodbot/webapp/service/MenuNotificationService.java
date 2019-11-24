@@ -30,5 +30,9 @@ public class MenuNotificationService
 			log.info("Sending menu notification...");
 			_messageService.sendMessage(parsedNotificationText);
 		}
+		else
+		{
+			log.info("Menu not set for today, skipping the notification process");
+		}
 	}
 }

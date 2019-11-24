@@ -32,6 +32,7 @@ public class SkypeTokenService
 
 		if (token.isPresent() && !TokenLifetimeHelper.tokenHasExpired(token.get()))
 		{
+			log.info("The cached registration token is still valid, reusing it");
 			return token.get();
 		}
 
@@ -53,7 +54,7 @@ public class SkypeTokenService
 		}
 		else
 		{
-			log.info("Skype token is still valid, reusing it to obtain a registration token...");
+			log.info("The cached Skype token is still valid, reusing it to obtain a registration token...");
 			skypeToken = token.get();
 		}
 
