@@ -19,7 +19,7 @@ public class MessagingController
 	@PostMapping
 	public MessageResponse sendMessage(@RequestBody final Message message)
 	{
-		final LocalDateTime localDateTime = _messageService.sendMessage(message.getMessage())
+		final LocalDateTime localDateTime = _messageService.sendMessage(message.getMessageText())
 			.orElseThrow(() -> new FoodBotException("Unable to send a message"));
 
 		return new MessageResponse(DateTimeConverter.fromLocalDateTime(localDateTime));
