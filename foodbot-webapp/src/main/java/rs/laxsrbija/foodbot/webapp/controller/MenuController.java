@@ -57,4 +57,12 @@ public class MenuController
 		final DayOfWeek dayOfWeek = DayOfWeek.of(id);
 		_menuService.deleteById(dayOfWeek);
 	}
+
+	@GetMapping("/today")
+	public MenuDto getMenuForToday()
+	{
+		final MenuEntity menuForToday = _menuService.getMenuForToday()
+			.orElseThrow(() -> new ResourceNotFoundException("Unable to get today's menu"));
+		return MenuMapper.toDto(menuForToday);
+	}
 }

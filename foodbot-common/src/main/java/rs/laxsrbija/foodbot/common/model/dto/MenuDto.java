@@ -10,7 +10,6 @@ public class MenuDto
 	private Integer dayOfWeek;
 	private String mainCourse;
 	private String salad;
-	@Builder.Default
 	private Boolean sendReminder = true;
 	private String updated;
 }
