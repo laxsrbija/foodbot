@@ -5,27 +5,27 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import rs.laxsrbija.foodbot.common.model.entity.*;
-import rs.laxsrbija.foodbot.common.service.MenuReviewService;
+import rs.laxsrbija.foodbot.common.service.PreliminaryMenuService;
 import rs.laxsrbija.foodbot.common.service.MenuService;
 
 @Service
 @RequiredArgsConstructor
-public class MenuReviewPublisher
+public class PreliminaryMenuPublisher
 {
 	private final MenuService _menuService;
-	private final MenuReviewService _menuReviewService;
+	private final PreliminaryMenuService _preliminaryMenuService;
 
-	public List<MenuEntity> publishReviewMenu(final MenuReviewEntity entity)
+	public List<MenuEntity> publishReviewMenu(final PreliminaryMenuEntity entity)
 	{
 		final List<ReceivedMenuItemEntity> receivedMenuItemEntities = entity.getReceivedMenuItemEntities();
 
 		final List<MenuEntity> savedMenuEntities = receivedMenuItemEntities.stream()
-			.map(MenuReviewPublisher::convertToMenu)
+			.map(PreliminaryMenuPublisher::convertToMenu)
 			.map(_menuService::save)
 			.collect(Collectors.toList());
 
 		// Remove the preliminary menu instance
-		_menuReviewService.deleteById(entity.getId());
+		_preliminaryMenuService.deleteById(entity.getId());
 
 		return savedMenuEntities;
 	}

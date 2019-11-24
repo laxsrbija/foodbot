@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MenuReviewDto
+public class PreliminaryMenuDto
 {
 	private Long id;
 	private String sender;

@@ -6,34 +6,34 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import rs.laxsrbija.foodbot.common.helper.DateTimeConverter;
-import rs.laxsrbija.foodbot.common.model.dto.MenuReviewDto;
+import rs.laxsrbija.foodbot.common.model.dto.PreliminaryMenuDto;
 import rs.laxsrbija.foodbot.common.model.dto.ReceivedMenuItemDto;
-import rs.laxsrbija.foodbot.common.model.entity.MenuReviewEntity;
+import rs.laxsrbija.foodbot.common.model.entity.PreliminaryMenuEntity;
 import rs.laxsrbija.foodbot.common.model.entity.ReceivedMenuItemEntity;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class MenuReviewMapper
+public class PreliminaryMenuMapper
 {
-	public static MenuReviewDto toDto(final MenuReviewEntity menuReviewEntity)
+	public static PreliminaryMenuDto toDto(final PreliminaryMenuEntity preliminaryMenuEntity)
 	{
-		final MenuReviewDto.MenuReviewDtoBuilder dtoBuilder = MenuReviewDto.builder()
-			.id(menuReviewEntity.getId())
-			.sender(menuReviewEntity.getSender())
-			.rawText(menuReviewEntity.getRawText());
+		final PreliminaryMenuDto.PreliminaryMenuDtoBuilder dtoBuilder = PreliminaryMenuDto.builder()
+			.id(preliminaryMenuEntity.getId())
+			.sender(preliminaryMenuEntity.getSender())
+			.rawText(preliminaryMenuEntity.getRawText());
 
-		final LocalDateTime dateReceived = menuReviewEntity.getDateReceived();
+		final LocalDateTime dateReceived = preliminaryMenuEntity.getDateReceived();
 		if (dateReceived != null)
 		{
 			dtoBuilder.dateReceived(DateTimeConverter.fromLocalDateTime(dateReceived));
 		}
 
-		final LocalDateTime dateSent = menuReviewEntity.getDateSent();
+		final LocalDateTime dateSent = preliminaryMenuEntity.getDateSent();
 		if (dateSent != null)
 		{
 			dtoBuilder.dateSent(DateTimeConverter.fromLocalDateTime(dateSent));
 		}
 
-		final List<ReceivedMenuItemEntity> receivedMenuItemEntities = menuReviewEntity.getReceivedMenuItemEntities();
+		final List<ReceivedMenuItemEntity> receivedMenuItemEntities = preliminaryMenuEntity.getReceivedMenuItemEntities();
 		if (receivedMenuItemEntities != null)
 		{
 			final List<ReceivedMenuItemDto> receivedMenuItems =
@@ -46,28 +46,28 @@ public class MenuReviewMapper
 		return dtoBuilder.build();
 	}
 
-	public static MenuReviewEntity fromDto(final MenuReviewDto menuReviewDto)
+	public static PreliminaryMenuEntity fromDto(final PreliminaryMenuDto preliminaryMenuDto)
 	{
-		final MenuReviewEntity.MenuReviewEntityBuilder entityBuilder = MenuReviewEntity.builder()
-			.id(menuReviewDto.getId())
-			.sender(menuReviewDto.getSender())
-			.rawText(menuReviewDto.getRawText());
+		final PreliminaryMenuEntity.PreliminaryMenuEntityBuilder entityBuilder = PreliminaryMenuEntity.builder()
+			.id(preliminaryMenuDto.getId())
+			.sender(preliminaryMenuDto.getSender())
+			.rawText(preliminaryMenuDto.getRawText());
 
-		final String dateReceived = menuReviewDto.getDateReceived();
+		final String dateReceived = preliminaryMenuDto.getDateReceived();
 		if (dateReceived != null && !dateReceived.trim().isEmpty())
 		{
 			final LocalDateTime localDateTime = DateTimeConverter.toLocalDateTime(dateReceived);
 			entityBuilder.dateReceived(localDateTime);
 		}
 
-		final String dateSent = menuReviewDto.getDateSent();
+		final String dateSent = preliminaryMenuDto.getDateSent();
 		if (dateSent != null && !dateSent.trim().isEmpty())
 		{
 			final LocalDateTime localDateTime = DateTimeConverter.toLocalDateTime(dateSent);
 			entityBuilder.dateSent(localDateTime);
 		}
 
-		final List<ReceivedMenuItemDto> receivedMenuItems = menuReviewDto.getReceivedMenuItems();
+		final List<ReceivedMenuItemDto> receivedMenuItems = preliminaryMenuDto.getReceivedMenuItems();
 		if (receivedMenuItems != null)
 		{
 			final List<ReceivedMenuItemEntity> receivedMenuItemEntities =

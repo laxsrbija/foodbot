@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuReviewEntity
+public class PreliminaryMenuEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
