@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import rs.laxsrbija.foodbot.common.model.dto.MenuDto;
+import rs.laxsrbija.foodbot.common.model.dto.MenuReviewDto;
 import rs.laxsrbija.foodbot.common.model.entity.MenuEntity;
 import rs.laxsrbija.foodbot.common.model.mapper.MenuMapper;
+import rs.laxsrbija.foodbot.common.model.mapper.MenuReviewMapper;
 import rs.laxsrbija.foodbot.common.service.MenuService;
 import rs.laxsrbija.foodbot.webapp.exception.ResourceNotFoundException;
+import rs.laxsrbija.foodbot.webapp.service.MenuReviewPublisher;
 
 @RestController
 @RequestMapping(path = "/api/services/menu")
@@ -18,6 +21,7 @@ import rs.laxsrbija.foodbot.webapp.exception.ResourceNotFoundException;
 public class MenuController
 {
 	private final MenuService _menuService;
+	private final MenuReviewPublisher _menuReviewPublisher;
 
 	@GetMapping
 	public List<MenuDto> getWeeklyMenu()
@@ -64,5 +68,13 @@ public class MenuController
 		final MenuEntity menuForToday = _menuService.getMenuForToday()
 			.orElseThrow(() -> new ResourceNotFoundException("Unable to get today's menu"));
 		return MenuMapper.toDto(menuForToday);
+	}
+
+	@GetMapping("/publish")
+	public List<MenuDto> publishMenu(@RequestBody final MenuReviewDto dto)
+	{
+		return _menuReviewPublisher.publishReviewMenu(MenuReviewMapper.fromDto(dto)).stream()
+			.map(MenuMapper::toDto)
+			.collect(Collectors.toList());
 	}
 }
