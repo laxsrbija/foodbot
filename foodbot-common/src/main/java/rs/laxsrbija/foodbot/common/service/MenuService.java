@@ -49,4 +49,10 @@ public class MenuService implements EntityServiceInterface<MenuEntity, DayOfWeek
 	{
 		_menuRepository.deleteById(id);
 	}
+
+	public Optional<MenuEntity> getMenuForToday()
+	{
+		final DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
+		return findById(dayOfWeek);
+	}
 }

@@ -26,6 +26,13 @@ public class ConfigurationController
 			.collect(Collectors.toList());
 	}
 
+	@PostMapping
+	public ConfigurationDto saveConfiguration(@RequestBody final ConfigurationDto configurationDto)
+	{
+		final ConfigurationEntity entity = _configurationService.save(ConfigurationMapper.fromDto(configurationDto));
+		return ConfigurationMapper.toDto(entity);
+	}
+
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAllConfigurationEntries()

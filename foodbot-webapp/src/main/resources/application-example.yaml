@@ -12,9 +12,13 @@ foodbot:
       key: MEAL_SALAD
       icon: salad
       description: Salad of the day
+  scheduling:
+    daily-menu-notification-schedule: 0 0 9 * * *
+    menu-update-check-schedule: 0 0 * * * SUN,MON
   messaging:
     username: <SKYPE USERNAME>
     password: <SKYPE PASSWORD>
+    group-id: <SKYPE GROUP ID>
     shorter-token-lifespan: true
   notifications:
     expected-subject: <EXPECTED EMAIL SUBJECT>
