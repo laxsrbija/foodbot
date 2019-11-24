@@ -1,7 +1,8 @@
 package rs.laxsrbija.foodbot.webapp.service;
 
 import static rs.laxsrbija.foodbot.common.service.ConfigurationService.REMINDER_NOTIFICATION_TEXT_CONFIGURATION_KEY;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.stereotype.Service;
@@ -9,23 +10,19 @@ import lombok.RequiredArgsConstructor;
 import rs.laxsrbija.foodbot.common.configuration.DefaultPlaceholderConfiguration;
 import rs.laxsrbija.foodbot.common.exception.FoodBotException;
 import rs.laxsrbija.foodbot.common.model.entity.*;
-import rs.laxsrbija.foodbot.common.service.*;
-import rs.laxsrbija.foodbot.webapp.exception.ResourceNotFoundException;
+import rs.laxsrbija.foodbot.common.service.ConfigurationService;
+import rs.laxsrbija.foodbot.common.service.GreetingService;
 
 @Service
 @RequiredArgsConstructor
-public class DailyNotificationTextParser
+public class NotificationTextParser
 {
-	private final MenuService _menuService;
 	private final GreetingService _greetingService;
 	private final ConfigurationService _configurationService;
 	private final DefaultPlaceholderConfiguration _defaultPlaceholderConfiguration;
 
-	public String parseNotificationText()
+	public String parseNotificationText(final MenuEntity menu)
 	{
-		final MenuEntity menu = _menuService.getMenuForToday()
-			.orElseThrow(() -> new ResourceNotFoundException("Unable to fetch today's menu"));
-
 		final List<ConfigurationEntity> availableConfigurations = getAvailableConfigurations();
 		final Map<String, String> availableConfigurationsMap = mapAvailableConfigurations(availableConfigurations);
 		addReservedValuesToMap(availableConfigurationsMap, menu);
