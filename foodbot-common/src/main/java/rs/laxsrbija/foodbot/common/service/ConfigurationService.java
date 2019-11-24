@@ -38,7 +38,7 @@ public class ConfigurationService implements EntityServiceInterface<Configuratio
 	@Override
 	public Optional<ConfigurationEntity> findById(final String id)
 	{
-		return Optional.empty();
+		return _configurationRepository.findById(id);
 	}
 
 	@Override
@@ -52,8 +52,10 @@ public class ConfigurationService implements EntityServiceInterface<Configuratio
 	{
 		if (id.equalsIgnoreCase(REMINDER_NOTIFICATION_TEXT_CONFIGURATION_KEY))
 		{
-			throw new FoodBotException("The notification reminder configuration cannot be deleted");
+			throw new FoodBotException("The menu notification configuration cannot be deleted");
 		}
+
+		_configurationRepository.deleteById(id);
 	}
 
 	private static ConfigurationEntity transformConfigurationKey(final ConfigurationEntity entity)
