@@ -24,7 +24,7 @@ public class MenuParser
 	private final NotificationServiceConfiguration _notificationServiceConfiguration;
 	private final CsvMapper _csvMapper = new CsvMapper(new CsvFactory().enable(CsvParser.Feature.SKIP_EMPTY_LINES));
 
-	public List<ParsedMenuItem> parseEmail(final InboundMenuEmail inboundMenuEmail)
+	List<ParsedMenuItem> parseEmail(final InboundMenuEmail inboundMenuEmail)
 	{
 		final String message = inboundMenuEmail.getMessage();
 
@@ -32,7 +32,8 @@ public class MenuParser
 		{
 			try
 			{
-				return parseEmailContent(message);
+				final String trimmedMessage = removeBlankLines(message);
+				return parseEmailContent(trimmedMessage);
 			}
 			catch (final Exception e)
 			{
@@ -84,5 +85,25 @@ public class MenuParser
 		}
 
 		return csvSchemaBuilder.build().withoutHeader();
+	}
+
+	private static String removeBlankLines(final String input)
+	{
+		final StringJoiner stringJoiner = new StringJoiner("\n");
+		final Scanner scanner = new Scanner(input);
+
+		while (scanner.hasNextLine())
+		{
+			final String line = scanner.nextLine();
+			final String trimmedLine = line.trim();
+
+			if (!trimmedLine.isEmpty())
+			{
+				stringJoiner.add(trimmedLine);
+			}
+		}
+
+		scanner.close();
+		return stringJoiner.toString();
 	}
 }
