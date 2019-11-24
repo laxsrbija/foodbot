@@ -1,7 +1,7 @@
 package rs.laxsrbija.foodbot.notifications.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,27 +31,38 @@ public class NotificationService
 	private final NotificationServiceConfiguration _configuration;
 	private final MenuReviewService _menuReviewService;
 
+	@Scheduled(cron = "${foodbot.scheduling.menu-update-check-schedule}")
 	public void checkForMenuUpdates()
+	{
+		log.info("Checking for preliminary menu entries...");
+		getNewPreliminaryMenu();
+	}
+
+	public List<MenuReviewEntity> getNewPreliminaryMenu()
 	{
 		final List<InboundMenuEmail> emailFromServer = _inboundEmailService.getEmailFromServer();
 
 		if (emailFromServer.isEmpty())
 		{
 			log.info("No new weekly menu messages");
-			return;
+			return Collections.emptyList();
 		}
 
+		List<MenuReviewEntity> newReviewEntities = new ArrayList<>();
 		for (final InboundMenuEmail inboundMenuEmail : emailFromServer)
 		{
-			processReceivedEmail(inboundMenuEmail);
+			final MenuReviewEntity menuReviewEntity = processReceivedEmail(inboundMenuEmail);
+			newReviewEntities.add(menuReviewEntity);
 		}
 
 		log.info("New weekly menu emails have been received. Notifying reviewers...");
 		final long pendingMessages = _menuReviewService.count();
 		notifyReviewers(pendingMessages);
+
+		return newReviewEntities;
 	}
 
-	private void processReceivedEmail(final InboundMenuEmail inboundMenuEmail)
+	private MenuReviewEntity processReceivedEmail(final InboundMenuEmail inboundMenuEmail)
 	{
 		final List<ParsedMenuItem> parsedMenuItems = _menuParser.parseEmail(inboundMenuEmail);
 		final List<ReceivedMenuItemEntity> receivedMenuItemEntities = new ArrayList<>();
@@ -62,14 +73,14 @@ public class NotificationService
 			receivedMenuItemEntities.add(receivedMenuItemEntity);
 		}
 
-		final MenuReviewEntity weeklyMenu = new MenuReviewEntity();
-		weeklyMenu.setSender(inboundMenuEmail.getSender());
-		weeklyMenu.setDateSent(inboundMenuEmail.getDateSent());
-		weeklyMenu.setDateReceived(inboundMenuEmail.getDateReceived());
-		weeklyMenu.setRawText(inboundMenuEmail.getMessage());
-		weeklyMenu.setReceivedMenuItemEntities(receivedMenuItemEntities);
+		final MenuReviewEntity weeklyMenu = MenuReviewEntity.builder()
+			.sender(inboundMenuEmail.getSender())
+			.dateSent(inboundMenuEmail.getDateSent())
+			.dateReceived(inboundMenuEmail.getDateReceived())
+			.rawText(inboundMenuEmail.getMessage())
+			.receivedMenuItemEntities(receivedMenuItemEntities).build();
 
-		_menuReviewService.save(weeklyMenu);
+		return _menuReviewService.save(weeklyMenu);
 	}
 
 	private void notifyReviewers(final long numberOfMessages)

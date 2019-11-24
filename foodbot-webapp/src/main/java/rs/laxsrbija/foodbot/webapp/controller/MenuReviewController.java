@@ -5,11 +5,15 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
+import rs.laxsrbija.foodbot.common.model.dto.MenuDto;
 import rs.laxsrbija.foodbot.common.model.dto.MenuReviewDto;
 import rs.laxsrbija.foodbot.common.model.entity.MenuReviewEntity;
+import rs.laxsrbija.foodbot.common.model.mapper.MenuMapper;
 import rs.laxsrbija.foodbot.common.model.mapper.MenuReviewMapper;
 import rs.laxsrbija.foodbot.common.service.MenuReviewService;
+import rs.laxsrbija.foodbot.notifications.service.NotificationService;
 import rs.laxsrbija.foodbot.webapp.exception.ResourceNotFoundException;
+import rs.laxsrbija.foodbot.webapp.service.MenuReviewPublisher;
 
 @RestController
 @RequestMapping(path = "/api/services/review")
@@ -17,6 +21,8 @@ import rs.laxsrbija.foodbot.webapp.exception.ResourceNotFoundException;
 public class MenuReviewController
 {
 	private final MenuReviewService _menuReviewService;
+	private final MenuReviewPublisher _menuReviewPublisher;
+	private final NotificationService _notificationService;
 
 	@GetMapping
 	public List<MenuReviewDto> getAllPendingItems()
@@ -59,5 +65,21 @@ public class MenuReviewController
 	public Long getPendingReviewItems()
 	{
 		return _menuReviewService.count();
+	}
+
+	@GetMapping("/publish")
+	public List<MenuDto> publishMenu(@RequestBody final MenuReviewDto dto)
+	{
+		return _menuReviewPublisher.publishReviewMenu(MenuReviewMapper.fromDto(dto)).stream()
+			.map(MenuMapper::toDto)
+			.collect(Collectors.toList());
+	}
+
+	@GetMapping("/check")
+	public List<MenuReviewDto> checkForMenuReviewUpdates()
+	{
+		return _notificationService.getNewPreliminaryMenu().stream()
+			.map(MenuReviewMapper::toDto)
+			.collect(Collectors.toList());
 	}
 }
