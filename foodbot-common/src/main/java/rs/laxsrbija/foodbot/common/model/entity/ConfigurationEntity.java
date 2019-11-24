@@ -13,6 +13,6 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class ConfigurationEntity extends PlaceholderEntity
 {
-	@Column
+	@Column(name = "configuration_value")
 	private String value;
 }

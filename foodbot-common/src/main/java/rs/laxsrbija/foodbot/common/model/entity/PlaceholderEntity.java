@@ -8,7 +8,7 @@ import lombok.*;
 public class PlaceholderEntity
 {
 	@Id
-	@Column(nullable = false)
+	@Column(name = "entity_key", nullable = false)
 	private String key;
 
 	@Column
