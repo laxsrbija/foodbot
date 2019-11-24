@@ -12,7 +12,7 @@ public class PlaceholderMapper
 	{
 		final PlaceholderDto placeholderDto = new PlaceholderDto();
 		placeholderDto.setKey(entity.getKey());
-		placeholderDto.setIcon(entity.getKey());
+		placeholderDto.setIcon(entity.getIcon());
 		placeholderDto.setDescription(entity.getDescription());
 		return placeholderDto;
 	}
