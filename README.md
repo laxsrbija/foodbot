@@ -47,6 +47,9 @@ FoodBot comes with IntelliJ IDEA run configurations, so it will pick-up the conf
 
 You can also set the active Spring profile to `development`, which will add an additional endpoint useful for development.
 
-#### Building the project
-A build can be created by performing a `mvn clean install`. 
+### Building the project
+Build the project by performing a performing a `mvn clean install`. 
 A `foodbot.jar` will be generated in the target folder of the webapp module.
+
+### Project architecture
+![](./resources/images/diagram.png)
