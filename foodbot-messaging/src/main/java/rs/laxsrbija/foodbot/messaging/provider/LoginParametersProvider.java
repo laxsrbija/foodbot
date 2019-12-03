@@ -9,11 +9,13 @@ import java.util.regex.Pattern;
 import kong.unirest.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import rs.laxsrbija.foodbot.messaging.exception.FoodBotMessagingException;
 import rs.laxsrbija.foodbot.messaging.helper.URLHelpers;
 import rs.laxsrbija.foodbot.messaging.helper.Utils;
 import rs.laxsrbija.foodbot.messaging.model.LoginParameters;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoginParametersProvider
 {
@@ -45,7 +47,7 @@ public class LoginParametersProvider
 			return matcher.group(1);
 		}
 
-		throw new FoodBotMessagingException("Unable to find the value of the hidden field PPFT");
+		throw new FoodBotMessagingException("Unable to find the value of the hidden field PPFT: " + html);
 	}
 
 	private static String getCookieValue(final String cookieName, final Map<String, String> cookies)

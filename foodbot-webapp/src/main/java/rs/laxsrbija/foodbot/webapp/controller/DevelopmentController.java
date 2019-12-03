@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import rs.laxsrbija.foodbot.common.model.entity.MenuEntity;
 import rs.laxsrbija.foodbot.common.service.MenuService;
+import rs.laxsrbija.foodbot.messaging.model.LoginParameters;
+import rs.laxsrbija.foodbot.messaging.provider.LoginParametersProvider;
 import rs.laxsrbija.foodbot.webapp.exception.ResourceNotFoundException;
 import rs.laxsrbija.foodbot.webapp.service.MenuNotificationService;
 import rs.laxsrbija.foodbot.webapp.service.NotificationTextParser;
@@ -31,5 +33,11 @@ public class DevelopmentController
 	public void sendNow()
 	{
 		_menuNotificationService.sendMenuNotification();
+	}
+
+	@GetMapping("parameters")
+	public LoginParameters getLoginParameters()
+	{
+		return LoginParametersProvider.getLoginParameters();
 	}
 }
