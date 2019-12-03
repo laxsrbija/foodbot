@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import rs.laxsrbija.foodbot.common.model.entity.MenuEntity;
 import rs.laxsrbija.foodbot.common.service.MenuService;
 import rs.laxsrbija.foodbot.webapp.exception.ResourceNotFoundException;
+import rs.laxsrbija.foodbot.webapp.service.MenuNotificationService;
 import rs.laxsrbija.foodbot.webapp.service.NotificationTextParser;
 
 @RestController
@@ -16,6 +17,7 @@ public class DevelopmentController
 {
 	private final MenuService _menuService;
 	private final NotificationTextParser _notificationTextParser;
+	private final MenuNotificationService _menuNotificationService;
 
 	@GetMapping("notification-message")
 	public String getNotificationMessage()
@@ -23,5 +25,11 @@ public class DevelopmentController
 		final MenuEntity menu = _menuService.getMenuForToday()
 			.orElseThrow(() -> new ResourceNotFoundException("Menu not set for today"));
 		return _notificationTextParser.parseNotificationText(menu);
+	}
+
+	@GetMapping("now")
+	public void sendNow()
+	{
+		_menuNotificationService.sendMenuNotification();
 	}
 }
