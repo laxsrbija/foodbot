@@ -36,7 +36,7 @@ public class MenuController
 
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteWeeklyGreetings()
+	public void deleteWeeklyMenu()
 	{
 		_menuService.deleteAll();
 	}
@@ -52,7 +52,7 @@ public class MenuController
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteGreetingById(@PathVariable("id") final Integer id)
+	public void deleteMenuById(@PathVariable("id") final Integer id)
 	{
 		final DayOfWeek dayOfWeek = DayOfWeek.of(id);
 		_menuService.deleteById(dayOfWeek);
