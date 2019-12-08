@@ -33,9 +33,9 @@
 
 	<modules>
 		<module>foodbot-common</module>
-		<module>foodbot-pi</module>
 		<module>foodbot-messaging</module>
 		<module>foodbot-notifications</module>
+		<module>foodbot-pi</module>
 		<module>foodbot-webapp</module>
 	</modules>
 

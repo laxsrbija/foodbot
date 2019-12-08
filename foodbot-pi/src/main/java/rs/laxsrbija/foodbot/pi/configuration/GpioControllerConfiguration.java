@@ -1,4 +1,4 @@
-package rs.laxsrbija.foodbot.foodbotpi.configuration;
+package rs.laxsrbija.foodbot.pi.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package rs.laxsrbija.foodbot.foodbotpi;
+package rs.laxsrbija.foodbot.pi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package rs.laxsrbija.foodbot.foodbotpi;
+package rs.laxsrbija.foodbot.pi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
