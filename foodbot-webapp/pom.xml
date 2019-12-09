@@ -30,11 +30,6 @@
 			<artifactId>foodbot-notifications</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<dependency>
-			<groupId>rs.laxsrbija.foodbot</groupId>
-			<artifactId>foodbot-pi</artifactId>
-			<version>${revision}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -58,6 +53,19 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>rpi</id>
+			<dependencies>
+				<dependency>
+					<groupId>rs.laxsrbija.foodbot</groupId>
+					<artifactId>foodbot-pi</artifactId>
+					<version>${revision}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 	<build>
 		<finalName>foodbot</finalName>
