@@ -3,7 +3,10 @@
 FoodBot is a system for communication between food providers (e.g. catering services or restaurants) and corporate users.
 It manages the food provider's weekly menu and notifies its end-users via a Skype group.  
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=laxsrbija_foodbot&metric=alert_status)](https://sonarcloud.io/dashboard?id=laxsrbija_foodbot) [![Maintainability](https://api.codeclimate.com/v1/badges/330f6f8dd2540c814e6d/maintainability)](https://codeclimate.com/github/laxsrbija/foodbot/maintainability)
+[![Build Status](https://travis-ci.org/laxsrbija/foodbot.svg?branch=master)](https://travis-ci.org/laxsrbija/foodbot)
+[![Maintainability](https://api.codeclimate.com/v1/badges/330f6f8dd2540c814e6d/maintainability)](https://codeclimate.com/github/laxsrbija/foodbot/maintainability)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=laxsrbija_foodbot&metric=alert_status)](https://sonarcloud.io/dashboard?id=laxsrbija_foodbot)
+
 
 ## Features
 * Menu storage and management
