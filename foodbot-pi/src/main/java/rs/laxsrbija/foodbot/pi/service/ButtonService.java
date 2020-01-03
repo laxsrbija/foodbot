@@ -30,6 +30,7 @@ public class ButtonService
 		catch (final Exception e)
 		{
 			log.error("Unable to send the food arrival notification: " + e.getMessage());
+			_buzzerService.buzz(BuzzType.ERROR);
 		}
 	}
 
