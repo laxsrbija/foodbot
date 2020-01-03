@@ -28,12 +28,14 @@
 		<jodd-mail.version>3.8.6</jodd-mail.version>
 		<commons-text.version>1.8</commons-text.version>
 		<swagger.version>2.9.2</swagger.version>
+		<pi4j.version>1.2</pi4j.version>
 	</properties>
 
 	<modules>
 		<module>foodbot-common</module>
 		<module>foodbot-messaging</module>
 		<module>foodbot-notifications</module>
+		<module>foodbot-pi</module>
 		<module>foodbot-webapp</module>
 	</modules>
 

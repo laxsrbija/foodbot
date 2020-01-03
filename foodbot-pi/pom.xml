@@ -9,9 +9,9 @@
 		<version>${revision}</version>
 	</parent>
 
-	<artifactId>foodbot-webapp</artifactId>
+	<artifactId>foodbot-pi</artifactId>
 	<version>${revision}</version>
-	<name>FoodBot :: Web App</name>
+	<name>FoodBot :: Raspberry Pi</name>
 	<packaging>jar</packaging>
 
 	<dependencies>
@@ -25,54 +25,27 @@
 			<artifactId>foodbot-common</artifactId>
 			<version>${revision}</version>
 		</dependency>
-		<dependency>
-			<groupId>rs.laxsrbija.foodbot</groupId>
-			<artifactId>foodbot-notifications</artifactId>
-			<version>${revision}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-text</artifactId>
-			<version>${commons-text.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pi4j</groupId>
+			<artifactId>pi4j-core</artifactId>
+			<version>${pi4j.version}</version>
 		</dependency>
 	</dependencies>
 
-	<profiles>
-		<profile>
-			<id>rpi</id>
-			<dependencies>
-				<dependency>
-					<groupId>rs.laxsrbija.foodbot</groupId>
-					<artifactId>foodbot-pi</artifactId>
-					<version>${revision}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
-
 	<build>
-		<finalName>foodbot</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>exec</classifier>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -43,6 +43,12 @@ foodbot:
       display-name: FoodBot
     csv:
       separator: ;
+  pi:
+    buzzer:
+      enabled: true
+      gpio-pin: 6
+    button:
+      gpio-pin: 4
 spring:
   h2:
     console:
