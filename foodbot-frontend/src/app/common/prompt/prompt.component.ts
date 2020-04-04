@@ -13,8 +13,8 @@ export class PromptComponent {
 	@Output() answer = new EventEmitter<boolean>();
 
 	close(userAnswer: boolean) {
-		this.active = userAnswer;
-		this.answer.emit(this.active);
+		this.active = false;
+		this.answer.emit(userAnswer);
 	}
 
 }
