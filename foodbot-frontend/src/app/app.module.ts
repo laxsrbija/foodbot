@@ -6,6 +6,7 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { HomeComponent } from './core/home/home.component';
 import { InstantMessageComponent } from './core/home/instant-message/instant-message.component';
 import { TodaysMenuComponent } from './core/home/todays-menu/todays-menu.component';
+import { PromptComponent } from './common/prompt/prompt.component';
 
 @NgModule({
 	declarations: [
@@ -13,7 +14,8 @@ import { TodaysMenuComponent } from './core/home/todays-menu/todays-menu.compone
 		NavbarComponent,
 		HomeComponent,
 		InstantMessageComponent,
-		TodaysMenuComponent
+		TodaysMenuComponent,
+		PromptComponent
 	],
 	imports: [
 		BrowserModule

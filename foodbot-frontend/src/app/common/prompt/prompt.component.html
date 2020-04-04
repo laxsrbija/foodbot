@@ -1,0 +1,19 @@
+<div class="modal" [ngClass]="{'is-active': active}">
+	<div class="modal-background"></div>
+	<div class="modal-card">
+		<header class="modal-card-head">
+			<p class="modal-card-title">{{ title }}</p>
+			<button class="delete" aria-label="close" (click)="close(false)"></button>
+		</header>
+		<section class="modal-card-body">
+			<div class="section has-text-centered">
+				<i class="far fa-question-circle fa-10x"></i>
+			</div>
+			<div class="section has-text-centered is-size-4">{{ content }}</div>
+		</section>
+		<footer class="modal-card-foot">
+			<button class="button is-success is-out is-fullwidth" (click)="close(true)">Yes</button>
+			<button class="button is-danger is-fullwidth" (click)="close(false)">No</button>
+		</footer>
+	</div>
+</div>
