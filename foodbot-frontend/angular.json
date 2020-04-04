@@ -125,5 +125,10 @@
 			}
 		}
 	},
-	"defaultProject": "foodbot-frontend"
+	"defaultProject": "foodbot-frontend",
+	"schematics": {
+		"@schematics/angular:component": {
+			"styleext": "scss"
+		}
+	}
 }
