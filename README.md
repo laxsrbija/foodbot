@@ -43,7 +43,7 @@ When the food arrives, simply press the button and FoodBot will send a notificat
 ## Getting started
 The easiest way to run FoodBot is by using a precompiled package from the [Releases page](https://github.com/laxsrbija/foodbot/releases).
 
-You also need to have Java 8 installed and fill out the configuration file. 
+You also need to have Java 11 installed and fill out the configuration file. 
 A sample FoodBot configuration can be found [here](https://github.com/laxsrbija/foodbot/blob/master/foodbot-webapp/src/main/resources/application.yaml).
 
 FoodBot can use both an embedded in-memory H2 database or be configured to use an external server, like MariaDB.
@@ -55,7 +55,7 @@ You can also provide a different configuration file location using the `--spring
 Once the server is running, you can open http://localhost:8080 for further info.
 
 ## Starting a development version
-If you want to develop or build FoodBot locally, make sure that Java 8 JDK and Maven are installed.
+If you want to develop or build FoodBot locally, make sure that Java 11 JDK and Maven are installed.
 
 After cloning the project locally, copy the sample configuration file and place it in the project root directory as `application-dev.yaml`.
 FoodBot comes with IntelliJ IDEA run configurations, so it will pick-up the configuration file automatically.
