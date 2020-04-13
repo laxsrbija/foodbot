@@ -8,6 +8,13 @@ import { InstantMessageComponent } from './core/home/instant-message/instant-mes
 import { TodaysMenuComponent } from './core/home/todays-menu/todays-menu.component';
 import { PromptComponent } from './common/prompt/prompt.component';
 import {FormsModule} from '@angular/forms';
+import {RouterModule, Routes} from '@angular/router';
+import { WeeklyMenuComponent } from './core/weekly-menu/weekly-menu.component';
+
+const appRoutes: Routes = [
+	{ path: '', component: HomeComponent },
+	{ path: 'menu', component: WeeklyMenuComponent }
+];
 
 @NgModule({
 	declarations: [
@@ -16,11 +23,13 @@ import {FormsModule} from '@angular/forms';
 		HomeComponent,
 		InstantMessageComponent,
 		TodaysMenuComponent,
-		PromptComponent
+		PromptComponent,
+		WeeklyMenuComponent
 	],
 	imports: [
 		BrowserModule,
-		FormsModule
+		FormsModule,
+		RouterModule.forRoot(appRoutes)
 	],
 	providers: [],
 	bootstrap: [AppComponent]
