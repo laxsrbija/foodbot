@@ -10,6 +10,7 @@ import { PromptComponent } from './common/prompt/prompt.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { WeeklyMenuComponent } from './core/weekly-menu/weekly-menu.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
 	imports: [
 		BrowserModule,
 		FormsModule,
+		HttpClientModule,
 		RouterModule.forRoot(appRoutes)
 	],
 	providers: [],
