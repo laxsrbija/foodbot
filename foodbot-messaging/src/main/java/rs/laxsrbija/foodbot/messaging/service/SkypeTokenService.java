@@ -28,7 +28,7 @@ public class SkypeTokenService
 	 */
 	RegistrationToken getValidRegistrationToken()
 	{
-		final Optional<RegistrationToken> token = _registrationTokenRepository.getToken();
+		final Optional<RegistrationToken> token = _registrationTokenRepository.getData();
 
 		if (token.isPresent() && !TokenLifetimeHelper.tokenHasExpired(token.get()))
 		{
@@ -45,10 +45,10 @@ public class SkypeTokenService
 	{
 		log.info("The registration token has expired, obtaining a new one...");
 
-		final Optional<SkypeToken> token = _skypeTokenRepository.getToken();
+		final Optional<SkypeToken> token = _skypeTokenRepository.getData();
 
 		final SkypeToken skypeToken;
-		if (!token.isPresent() || TokenLifetimeHelper.tokenHasExpired(token.get()))
+		if (token.isEmpty() || TokenLifetimeHelper.tokenHasExpired(token.get()))
 		{
 			skypeToken = renewSkypeToken();
 		}
@@ -60,7 +60,7 @@ public class SkypeTokenService
 
 		log.info("Obtaining a registration token...");
 		final RegistrationToken registrationToken = _registrationTokenProvider.getRegistrationToken(skypeToken);
-		return _registrationTokenRepository.saveToken(registrationToken);
+		return _registrationTokenRepository.saveData(registrationToken);
 	}
 
 	private SkypeToken renewSkypeToken()
@@ -75,6 +75,6 @@ public class SkypeTokenService
 
 		log.info("Obtaining a Skype token...");
 		final SkypeToken skypeToken = _skypeTokenProvider.getSkypeToken(loginToken);
-		return _skypeTokenRepository.saveToken(skypeToken);
+		return _skypeTokenRepository.saveData(skypeToken);
 	}
 }

@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 import rs.laxsrbija.foodbot.messaging.model.SkypeToken;
 
 @Repository
-public class SkypeTokenRepository extends AbstractTokenRepository<SkypeToken>
+public class SkypeTokenRepository extends AbstractMemoryRepository<SkypeToken>
 {
 }

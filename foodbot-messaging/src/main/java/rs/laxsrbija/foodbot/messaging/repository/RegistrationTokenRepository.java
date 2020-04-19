@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 import rs.laxsrbija.foodbot.messaging.model.RegistrationToken;
 
 @Repository
-public class RegistrationTokenRepository extends AbstractTokenRepository<RegistrationToken>
+public class RegistrationTokenRepository extends AbstractMemoryRepository<RegistrationToken>
 {
 }
