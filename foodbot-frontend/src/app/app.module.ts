@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { WeeklyMenuComponent } from './core/weekly-menu/weekly-menu.component';
 import {HttpClientModule} from '@angular/common/http';
+import { EmojiSelectorComponent } from './common/emoji-selector/emoji-selector.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
 		InstantMessageComponent,
 		TodaysMenuComponent,
 		PromptComponent,
-		WeeklyMenuComponent
+		WeeklyMenuComponent,
+		EmojiSelectorComponent
 	],
 	imports: [
 		BrowserModule,

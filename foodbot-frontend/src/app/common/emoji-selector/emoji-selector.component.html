@@ -1,0 +1,52 @@
+<div id="quickviewDefault" class="quickview" [ngClass]="{'is-active': active}">
+	<header class="quickview-header">
+		<p class="title">Emoji selector</p>
+		<span class="delete" (click)="closeQuickView()"></span>
+	</header>
+
+	<div class="quickview-body">
+		<div class="quickview-block">
+
+			<div class="section">
+				<div class="columns">
+					<div class="column">
+						<div class="field">
+							<p class="control has-icons-left is-expanded">
+								<input class="input"
+								       type="text"
+								       placeholder="Search by emoji code or name"
+								       [ngModel]="emojiFilter"
+								       (ngModelChange)=filterChange($event)>
+								<span class="icon is-small is-left">
+									<i class="fas fa-search"></i>
+								</span>
+							</p>
+						</div>
+					</div>
+					<div class="column is-narrow">
+						<button class="button" data-tooltip="Insert emojis" (click)="reloadEmojiList()">
+							<span class="icon is-small">
+								<i class="fas fa-sync-alt"></i>
+							</span>
+							<span>Reload</span>
+						</button>
+					</div>
+				</div>
+				<ng-container *ngFor="let section of getFilteredEmoji()">
+					<br>
+					<h3 class="title is-4">{{ section.sectionName }}</h3>
+					<hr>
+					<div class="buttons">
+						<ng-container *ngFor="let emoji of section.emojiList">
+							<button class="button" [title]="emoji.name" (click)="selectEmoji(emoji.code)">
+								<figure class="image is-24x24">
+									<img [src]="emoji.source" [alt]="emoji.name">
+								</figure>
+							</button>
+						</ng-container>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+</div>
