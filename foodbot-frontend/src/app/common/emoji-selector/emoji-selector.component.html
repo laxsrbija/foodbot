@@ -36,12 +36,10 @@
 					<br>
 					<h3 class="title is-4">{{ section.sectionName }}</h3>
 					<hr>
-					<div class="buttons">
+					<div class="buttons are-medium">
 						<ng-container *ngFor="let emoji of section.emojiList">
 							<button class="button" [title]="emoji.name" (click)="selectEmoji(emoji.code)">
-								<figure class="image is-24x24">
-									<img [src]="emoji.source" [alt]="emoji.name">
-								</figure>
+								<img class="emoji" [src]="emoji.source" [alt]="emoji.name">
 							</button>
 						</ng-container>
 					</div>

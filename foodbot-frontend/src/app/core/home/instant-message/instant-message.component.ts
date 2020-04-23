@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {PromptComponent} from '../../../common/prompt/prompt.component';
+import {EmojiSelectorComponent} from '../../../common/emoji-selector/emoji-selector.component';
 
 @Component({
 	selector: 'app-instant-message',
@@ -9,8 +10,9 @@ import {PromptComponent} from '../../../common/prompt/prompt.component';
 export class InstantMessageComponent {
 
 	@ViewChild('messagePrompt') messagePrompt: PromptComponent;
+	@ViewChild('emojiSelector') emojiSelector: EmojiSelectorComponent;
 
-	messageText: string;
+	messageText = '';
 
 	displayMessagePrompt() {
 		this.messagePrompt.active = true;
@@ -21,4 +23,11 @@ export class InstantMessageComponent {
 		console.log(answer);
 	}
 
+	onSelectedEmoji(emojiCode: string) {
+		this.messageText = this.messageText.concat(' ' + emojiCode);
+	}
+
+	toggleEmojiSelector() {
+		this.emojiSelector.active = true;
+	}
 }

@@ -7,7 +7,7 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 @Component({
 	selector: 'app-emoji-selector',
 	templateUrl: './emoji-selector.component.html',
-	styleUrls: ['./emoji-selector.component.css']
+	styleUrls: ['./emoji-selector.component.scss']
 })
 export class EmojiSelectorComponent implements OnInit {
 
@@ -56,6 +56,7 @@ export class EmojiSelectorComponent implements OnInit {
 
 	closeQuickView(): void {
 		this.active = false;
+		this.resetFilter();
 	}
 
 	selectEmoji(emojiCode: string): void {
@@ -64,5 +65,9 @@ export class EmojiSelectorComponent implements OnInit {
 
 	filterChange(filter: string): void {
 		this.filterChanged.next(filter);
+	}
+
+	resetFilter() {
+		this.emojiFilter = '';
 	}
 }

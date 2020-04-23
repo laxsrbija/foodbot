@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="column is-narrow">
-			<button class="button" data-tooltip="Insert emojis">
+			<button class="button" data-tooltip="Insert emojis" (click)="toggleEmojiSelector()">
 				<span class="icon is-small">
 					<i class="far fa-laugh"></i>
 				</span>
@@ -34,5 +34,6 @@
 		            [content]="'A message will be sent to the group chat.'"
 		            (answer)="onAnswerReceived($event)">
 		</app-prompt>
+		<app-emoji-selector #emojiSelector (selectedEmoji)="onSelectedEmoji($event)"></app-emoji-selector>
 	</div>
 </div>
